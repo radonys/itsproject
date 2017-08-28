@@ -3,5 +3,5 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^/', views.indexview.as_view(),name="index"),
+    url(r'^$', views.index,name="index"),
 ]

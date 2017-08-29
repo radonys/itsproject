@@ -25,7 +25,7 @@ SECRET_KEY = 'z=+v=c#f^vm8l2@n5*3)a(6#h@dof+4(y69(_3(_*-8s3d0^ry'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['still-coast-39183.herokuapp.com']
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 # Application definition

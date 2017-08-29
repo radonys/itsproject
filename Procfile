@@ -1,1 +1,1 @@
-web: gunicorn ITS/ITS.wsgi --log-file -
+web: gunicorn ITS.wsgi --log-file -

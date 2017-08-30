@@ -2,14 +2,14 @@
     <title>Photo</title>
 	<body>
 		<form action="" method="post">
-            {% csrf token %}
-            <label>Enter id</label><input type="text" name="hid"><br>
+            {% csrf_token %}
+            <label>Enter id</label><input type="text" name="HID"><br>
             <input type="submit" value="Submit">
         </form>
     {% if r %}
-        <div>
-        {{data}}
-        </div>
+          <code>
+        {{data.text}}
+     </code>
     {% endif %}
 	</body>
 </html>

@@ -35,7 +35,7 @@ router.register(r'users', UserViewSet)
 """
 urlpatterns = [
     
-	url(r'^',include('restapi.urls')),
+	url(r'^ *',include('restapi.urls')),
 	#url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     #url(r'^route/', include(router.urls)),
 ]

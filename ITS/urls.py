@@ -16,8 +16,8 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
-
+#from rest_framework import routers, serializers, viewsets
+"""
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -32,10 +32,10 @@ class UserViewSet(viewsets.ModelViewSet):
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-
+"""
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-	url(r'^$',include('restapi.urls')),
-	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^route/', include(router.urls)),
+    
+	url(r'^',include('restapi.urls')),
+	#url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    #url(r'^route/', include(router.urls)),
 ]

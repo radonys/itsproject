@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import requests
+import json
 # Create your views here.
 def index(request):
 	return render(request,"restapi/index.html")
@@ -9,7 +10,7 @@ def funchid(request):
 		h=request.POST['HID']
 		data = requests.post('https://farmereverywhere-server.herokuapp.com/households/',data={"HID":h})
 		r = True
-		return render(request,'restapi/households.html',{ "r": r ,"data":data,"h":h })
+		return render(request,'restapi/households.html',{ "r": r ,"data":data.text,"h":h })
 	else:
 		return render(request,'restapi/households.html',{ "r": r })
 def members(request):
@@ -18,7 +19,7 @@ def members(request):
 		h=request.POST['HID']
 		data = requests.post('https://farmereverywhere-server.herokuapp.com/members/',data={"HID":h})
 		r = True
-		return render(request,'restapi/members.html',{ "r": r ,"data":data,"h":h })
+		return render(request,'restapi/members.html',{ "r": r ,"data":data.text,"h":h })
 	else:
 		return render(request,'restapi/members.html',{ "r": r })
 def farms(request):
@@ -27,7 +28,7 @@ def farms(request):
 		h=request.POST['HID']
 		data = requests.post('https://farmereverywhere-server.herokuapp.com/farms/',data={"HID":h})
 		r = True
-		return render(request,'restapi/farms.html',{ "r": r ,"data":data,"h":h })
+		return render(request,'restapi/farms.html',{ "r": r ,"data":data.text,"h":h })
 	else:
 		return render(request,'restapi/farms.html',{ "r": r })
 def photos(request):
@@ -36,7 +37,7 @@ def photos(request):
 		h=request.POST['HID']
 		data = requests.post('https://farmereverywhere-server.herokuapp.com/photos/',data={"HID":h})
 		r = True
-		return render(request,'restapi/photos.html',{ "r": r ,"data":data,"h":h })
+		return render(request,'restapi/photos.html',{ "r": r ,"data":data.text,"h":h })
 	else:
 		return render(request,'restapi/photos.html',{ "r": r })
 def crops(request):
@@ -45,7 +46,7 @@ def crops(request):
 		h=request.POST['HID']
 		data = requests.post('https://farmereverywhere-server.herokuapp.com/crops/',data={"HID":h})
 		r = True
-		return render(request,'restapi/crops.html',{ "r": r ,"data":data,"h":h })
+		return render(request,'restapi/crops.html',{ "r": r ,"data":data.text,"h":h })
 	else:
 		return render(request,'restapi/crops.html',{ "r": r })
 		

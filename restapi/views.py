@@ -45,7 +45,7 @@ def crops(request):
 		h=request.POST['HID']
 		data = requests.post('https://farmereverywhere-server.herokuapp.com/crops/',data={"HID":h})
 		r = True
-		return render(request,'restapi/photos.html',{ "r": r ,"data":data,"h":h })
+		return render(request,'restapi/crops.html',{ "r": r ,"data":data,"h":h })
 	else:
 		return render(request,'restapi/crops.html',{ "r": r })
 		

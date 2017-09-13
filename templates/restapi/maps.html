@@ -42,7 +42,7 @@ for(j=0;j<data["Members"].length;j++){
 contentInfo+=data["Members"][j].Name+", "+data["Members"][j].Age+", "+data["Members"][j].Gender+"<br>";
 }
 for(j=0;j<data["Photos"].length;j++){
-contentInfo+="<img src='10.0.3.23:8003"+data["Photos"][j].file+"'>";
+contentInfo+="<img src='http://10.0.3.23:8003"+data["Photos"][j].file+"' height='200' width='200'>";
 }
 for (i = 0; i < data["Houses"].length; i++) {
     map.addMarker({
@@ -50,6 +50,7 @@ for (i = 0; i < data["Houses"].length; i++) {
   lng: data["Houses"][i].point.coordinates[0],
 infoWindow: {
     content: contentInfo,
+maxwidth:100
   }
 });}
 //vaishnav,I'm going to kill you

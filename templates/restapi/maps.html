@@ -54,6 +54,12 @@ var temp=[]
   {
 	temp.push(data["Farms"][i].plot.coordinates[0][j].reverse());
   }
+  var contentInfo="<ul type='disc'><li>Area:"+(data['Farms'][i].area).toString()+"</li><li>Crops:<ol type='I'>";
+  for(j=0;j<data['Farms'][i]['Crops'].length;j++)
+  {
+	contentInfo+="<li>Crop name:"+data['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data['Farms'][i]['Crops'][j].Seasons+"</li></ul></li>";
+  }
+  contentInfo+="</ol></li></ul>";
   mapObj.drawPolygon({
   paths: temp,
   strokeColor: '#000000',
@@ -62,7 +68,8 @@ var temp=[]
   fillColor: getRandomColour(),
   fillOpacity: 0.4,
   infoWindow: {
-    
+	content:contentInfo,
+	maxWidth:150
   }
 });
 } 

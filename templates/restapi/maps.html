@@ -16,13 +16,14 @@
         </form>
     <div id="map"></div>
 {% load staticfiles %}
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgcJqiV-Kbdio2bMKukIXk7Dkh6F0S0C8"></script>
+    
     <script src="{% static "gmaps.js" %}"></script>
     <script>
 function getRandomColour(){
 	var letters="0123456789ABCDEF";
 	var colour="#";
-	for(i=0;i<6;i++)
+	for(y=0;y<6;y++)
 	{
 		colour+=letters[Math.floor(Math.random()*16)];
 	}
@@ -71,6 +72,8 @@ infoWindow: {
 });}
 //var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
 for(i=0;i<data["Farms"].length;i++){
+console.log(data["Farms"].length);
+console.log(i);
 var temp=[]  
   for(j=0;j<data["Farms"][i].plot.coordinates[0].length;j++)
   {
@@ -95,12 +98,11 @@ var infoWindow = new google.maps.InfoWindow({
   fillOpacity: 0.4,
   click: function(clickEvent) {
     var position = clickEvent.latLng;
-
     infoWindow.setPosition(position);
     infoWindow.open(map.map);
   }
 });
-console.log(map);
+console.log(i);
 } 
     </script>
   </body>

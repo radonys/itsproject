@@ -31,19 +31,18 @@ function getRandomColour(){
 data=[]
 {% if r %}
 data=JSON.parse('{{ data|safe }}');//[[48.8577262,2.2928475],[48.8576973,2.292387],[48.8575015,2.2912906]]
-console.log(data)
 {% endif %}
       var map = new GMaps({
         el: '#map',
         lat: data["Houses"][0].point.coordinates[1],
         lng: data["Houses"][0].point.coordinates[0]
       });
-var contentInfo="Income: "+(data["Houses"][0].income).toString()+"<br>"
+var contentInfo="Income: "+(data["Houses"][0].income).toString()+"<br>";
 for(j=0;j<data["Members"].length;j++){
 contentInfo+=data["Members"][j].Name+", "+data["Members"][j].Age+", "+data["Members"][j].Gender+"<br>";
 }
-for(j=0;data["Photos"].length;j++){
-contentInfo+="<img src='10.0.3.23:8003/'"+data["Photos"][].file+"</img>"
+for(j=0;j<data["Photos"].length;j++){
+contentInfo+="<img src='10.0.3.23:8003/'"+data["Photos"][j].file+"height='100' width='100'>";
 }
 for (i = 0; i < data["Houses"].length; i++) {
     map.addMarker({
@@ -51,7 +50,6 @@ for (i = 0; i < data["Houses"].length; i++) {
   lng: data["Houses"][i].point.coordinates[0],
 infoWindow: {
     content: contentInfo,
-    maxWidth: 100
   }
 });}
 

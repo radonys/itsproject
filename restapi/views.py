@@ -60,10 +60,7 @@ def area_data(request):
 	else:
 		return render(request,'restapi/maps.html',{ "r": r})
 def area_all(request):
-	r=False
-	if request.POST:
-		data = requests.post('http://10.0.3.23:8003/housea/')	#change housea accordingly
-		r = True
-		return render(request,'restapi/maps.html',{"r":r, "data":data.text})
-	else:
-		return render(request, 'restapi/maps.html',{"r": r})	
+	data = requests.post('http://10.0.3.23:8003/houseall/')	#change housea accordingly
+	r = True
+	return render(request,'restapi/mapsall.html',{"r":r, "data":data.text})
+	

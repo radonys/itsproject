@@ -10,5 +10,6 @@ urlpatterns = [
 	url(r'^photos/', views.photos,name="photos"),
 	url(r'^members/', views.members,name="members"),
 	url(r'^crops/', views.crops,name="members"),
-	url(r'^houses/', views.area_data,name="members"),
+	url(r'^houses/', views.area_data,name="maps"),
+	url(r'^housesall/', views.area_all,name="mapsall")
 ]

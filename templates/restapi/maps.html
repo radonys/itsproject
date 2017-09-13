@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      #map {
+        width: 800px;
+        height: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="gmaps.js"></script>
+    <script>
+      var mapObj = new GMaps({
+        el: '#map',
+        lat: data[0][0],
+        lng: data[0][1].
+      });
+});
+//var data=[[48.8577262,2.2928475],[48.8576973,2.292387],[48.8575015,2.2912906]]
+for (i = 0; i < data.length; i++) {
+    mapObj.addMarker({
+  lat: data[i][0],
+  lng: data[i][1],
+infoWindow: {
+    content: i.toString(),
+    maxWidth: 100
+  }
+});
+/*var path=[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]*/
+for(i=0;i<paths.length;i++){
+  mapObj.drawPolygon({
+  paths: paths[i],
+  strokeColor: '#000000',
+  strokeOpacity: 0.3,
+  strokeWeight: 2,
+  fillColor: '#00e676',
+  fillOpacity: 0.4
+});
+} 
+    </script>
+  </body>
+</html>

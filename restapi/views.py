@@ -50,4 +50,20 @@ def crops(request):
 	else:
 		return render(request,'restapi/crops.html',{ "r": r })
 		
-	
+def area_data(request):
+	r=False
+	if request.POST:
+		h=request.POST['ID'] #change to appropriate ID
+		data = requests.post('https://farmereverywhere-server.herokuapp.com/housedat/'+str(h)+'/') #change to appropriate LINK
+		r = True
+		return render(request,'restapi/LINK.html',{"r": r, "data":data.text}) #change to appropriate LINK
+	else:
+		return render(request,'restapi/LINK.html',{ "r": r})
+def area_all(request):
+	r=False
+	if request.POST:
+		data = requests.post('https://farmereverywhere-server.herokuapp.com/housea/')	#change housea accordingly
+		r = True
+		return render(request,'restapi/LINK.html',{"r":r, "data":data.text}) #change to appropriate LINK
+	else:
+		return render(request, 'restapi/LINK.html',{"r": r})	

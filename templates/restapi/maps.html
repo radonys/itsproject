@@ -10,8 +10,9 @@
   </head>
   <body>
     <div id="map"></div>
+{% load staticfiles %}
     <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <script src="gmaps.js"></script>
+    <script src="{% static "gmaps.js" %}"></script>
     <script>
       var mapObj = new GMaps({
         el: '#map',

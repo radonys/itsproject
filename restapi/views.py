@@ -62,8 +62,8 @@ def area_data(request):
 def area_all(request):
 	r=False
 	if request.POST:
-		data = requests.post('https://farmereverywhere-server.herokuapp.com/housea/')	#change housea accordingly
+		#data = requests.post('https://farmereverywhere-server.herokuapp.com/housea/')	#change housea accordingly
 		r = True
-		return render(request,'restapi/LINK.html',{"r":r, "data":data.text}) #change to appropriate LINK
+		return render(request,'restapi/maps.html',{"r":r, "data":data.text}) #change to appropriate LINK
 	else:
-		return render(request, 'restapi/LINK.html',{"r": r})	
+		return render(request, 'restapi/maps.html',{"r": r})	

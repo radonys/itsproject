@@ -10,4 +10,5 @@ urlpatterns = [
 	url(r'^photos/', views.photos,name="photos"),
 	url(r'^members/', views.members,name="members"),
 	url(r'^crops/', views.crops,name="members"),
+	url(r'^houses/', views.area_all,name="members"),
 ]

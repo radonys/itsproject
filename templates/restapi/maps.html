@@ -9,30 +9,39 @@
     </style>
   </head>
   <body>
+<form action="" method="post">
+            {% csrf_token %}
+            <label>Enter id</label><input type="text" name="ID"><br>
+            <input type="submit" value="Submit">
+        </form>
     <div id="map"></div>
 {% load staticfiles %}
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="{% static "gmaps.js" %}"></script>
     <script>
+data=[]
+{% if r %}
+data=JSON.parse('{{ data|safe }}');//[[48.8577262,2.2928475],[48.8576973,2.292387],[48.8575015,2.2912906]]
+{% endif %}
       var mapObj = new GMaps({
         el: '#map',
-        lat: 48.8577262,
-        lng: 2.2928475
+        lat: data["Houses"][0].point.coordinates[0],
+        lng: data["Houses"][0].point.coordinates[1]
       });
-var data=[[48.8577262,2.2928475],[48.8576973,2.292387],[48.8575015,2.2912906]]
-for (i = 0; i < data.length; i++) {
+
+for (i = 0; i < data["Houses"].length; i++) {
     mapObj.addMarker({
-  lat: data[i][0],
-  lng: data[i][1],
+  lat: data["Houses"][i].point.coordinates[0],
+  lng: data["Houses"][i].point.coordinates[1],
 infoWindow: {
-    content: i.toString(),
+    content: (data["Houses"][i].income).toString(),
     maxWidth: 100
   }
 });}
-var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
-for(i=0;i<paths.length;i++){
+//var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
+for(i=0;i<data["Farms"].length;i++){
   mapObj.drawPolygon({
-  paths: paths[i],
+  paths: data["Farms"][i].plot.coordinates,
   strokeColor: '#000000',
   strokeOpacity: 0.3,
   strokeWeight: 2,

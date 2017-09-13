@@ -54,16 +54,16 @@ def area_data(request):
 	r=False
 	if request.POST:
 		h=request.POST['ID'] #change to appropriate ID
-		data = requests.post('https://farmereverywhere-server.herokuapp.com/housedat/'+str(h)+'/') #change to appropriate LINK
+		data = requests.post('https://farmereverywhere-server.herokuapp.com/housedat/'+str(h)+'/')
 		r = True
-		return render(request,'restapi/LINK.html',{"r": r, "data":data.text}) #change to appropriate LINK
+		return render(request,'restapi/maps.html',{"r": r, "data":data.text}) 
 	else:
-		return render(request,'restapi/LINK.html',{ "r": r})
+		return render(request,'restapi/maps.html',{ "r": r})
 def area_all(request):
 	r=False
 	if request.POST:
-		#data = requests.post('https://farmereverywhere-server.herokuapp.com/housea/')	#change housea accordingly
+		data = requests.post('https://farmereverywhere-server.herokuapp.com/housea/')	#change housea accordingly
 		r = True
-		return render(request,'restapi/maps.html',{"r":r, "data":data.text}) #change to appropriate LINK
+		return render(request,'restapi/maps.html',{"r":r, "data":data.text})
 	else:
 		return render(request, 'restapi/maps.html',{"r": r})	

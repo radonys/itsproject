@@ -38,8 +38,8 @@ data=JSON.parse('{{ data|safe }}');//[[48.8577262,2.2928475],[48.8576973,2.29238
         lng: data["Houses"][0].point.coordinates[0]
       });
 var contentInfo="Income: "+data["Houses"][0].income).toString()+"<br>";
-for(j=0;j<data["Members"].length;j++){
-contentInfo+=data["Members"][j].Name+", "+data["Members"][j].Age+", "+data["Members"][j].Gender+"<br>"
+for(jori=0;j<data["Members"].length;j++){
+contentInfo+=data["Members"][j].Name+", "+data["Members"][j].Age+", "+data["Members"][j].Gender+"<br>";
 }
 for (i = 0; i < data["Houses"].length; i++) {
     map.addMarker({

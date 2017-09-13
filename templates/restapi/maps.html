@@ -40,8 +40,13 @@ infoWindow: {
 });}
 //var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
 for(i=0;i<data["Farms"].length;i++){
+var temp=[]  
+  for(j=0;j<data["Farms"][i].plot.coordinates[0].length;j++)
+  {
+	temp.push(data["Farms"][i].plot.coordinates[0][j].reverse());
+  }
   mapObj.drawPolygon({
-  paths: data["Farms"][i].plot.coordinates,
+  paths: temp,
   strokeColor: '#000000',
   strokeOpacity: 0.3,
   strokeWeight: 2,

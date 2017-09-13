@@ -32,14 +32,14 @@ data=[]
 {% if r %}
 data=JSON.parse('{{ data|safe }}');//[[48.8577262,2.2928475],[48.8576973,2.292387],[48.8575015,2.2912906]]
 {% endif %}
-      var mapObj = new GMaps({
+      var map = new GMaps({
         el: '#map',
         lat: data["Houses"][0].point.coordinates[1],
         lng: data["Houses"][0].point.coordinates[0]
       });
 
 for (i = 0; i < data["Houses"].length; i++) {
-    mapObj.addMarker({
+    map.addMarker({
   lat: data["Houses"][i].point.coordinates[1],
   lng: data["Houses"][i].point.coordinates[0],
 infoWindow: {
@@ -59,20 +59,26 @@ var temp=[]
   {
 	contentInfo+="<li>Crop name:"+data['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data['Farms'][i]['Crops'][j].Seasons+"</li></ul></li>";
   }
+
   contentInfo+="</ol></li></ul>";
-  mapObj.drawPolygon({
+var infoWindow = new google.maps.InfoWindow({
+  content: contentInfo
+});
+  map.drawPolygon({
   paths: temp,
   strokeColor: '#000000',
   strokeOpacity: 0.3,
   strokeWeight: 2,
   fillColor: getRandomColour(),
   fillOpacity: 0.4,
-  infoWindow: {
-	content:"asdas",
-	maxWidth:150
+  click: function(clickEvent) {
+    var position = clickEvent.latLng;
+
+    infoWindow.setPosition(position);
+    infoWindow.open(map.map);
   }
 });
-console.log(mapObj);
+console.log(map);
 } 
     </script>
   </body>

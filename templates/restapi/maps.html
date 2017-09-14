@@ -1,11 +1,49 @@
 <!doctype html>
 <html>
   <head>
+<link href="https://developers.google.com/fusiontables/docs/samples/style/default.css" rel="stylesheet" type="text/css">
+
     <style>
       #map {
         width: 800px;
         height: 800px;
       }
+ #legend {
+        background: #FFF;
+        padding: 10px;
+        margin: 5px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+      }
+
+      .color {
+        border: 1px solid;
+        height: 50px;
+        width: 50px;
+        margin-right: 3px;
+        float: left;
+      }
+
+      .red {
+        background: #C00;
+      }
+
+      .yellow {
+        background: #FF3;
+      }
+
+      .green {
+        background: #6F0;
+      }
+
+      .blue {
+        background: #06C;
+      }
+
+      .purple {
+        background: #63C;
+      }
+
     </style>
   </head>
   <body>
@@ -45,6 +83,38 @@ data=JSON.parse('{{ data|safe }}');//[[48.8577262,2.2928475],[48.8576973,2.29238
         lat: data["Houses"][0].point.coordinates[1],
         lng: data["Houses"][0].point.coordinates[0]
       });
+var icons = {
+          houses: {
+            name: 'Houses',
+            icon: 'http://maps.google.com/mapfiles/ms/micons/red-dot.png'
+          },
+          wells: {
+            name: 'Wells',
+            icon: 'http://maps.google.com/mapfiles/ms/micons/water.png'
+          },
+          farms: {
+            name: 'Farms',
+            icon: "http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png"
+          }
+        };
+var legendcontent=''
+var legend = document.getElementById('legend');
+for (var key in icons){
+  var type = icons[key];
+  var name = type.name;
+  var icon = type.icon;
+  legendcontent+= '<img src="' + icon + '"> ' + name+'<br>';
+}
+map.addControl({
+  position: 'top_right',
+  content: legendcontent,
+  style: {
+    margin: '5px',
+    padding: '1px 6px',
+    border: 'solid 1px #717B87',
+    background: '#fff'
+  },
+});
 var contentInfo="Income: "+(data["Houses"][0].income).toString()+"<br>";
 for(j=0;j<data["Members"].length;j++){
 contentInfo+=data["Members"][j].Name+", "+data["Members"][j].Age+", "+data["Members"][j].Gender+"<br>";

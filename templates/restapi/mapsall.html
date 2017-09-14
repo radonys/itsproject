@@ -74,7 +74,9 @@ infoWindow: {
   }
 });}
 //var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
+var cc = getRandomColour();
 for(i=0;i<data[x]["Farms"].length;i++){
+
 var temp=[]  
   for(j=0;j<data[x]["Farms"][i].plot.coordinates[0].length;j++)
   {
@@ -92,7 +94,7 @@ var temp=[]
   strokeColor: '#000000',
   strokeOpacity: 0.3,
   strokeWeight: 2,
-  fillColor: getRandomColour(),
+  fillColor: cc,
   fillOpacity: 0.4,
 });
 var infowindow = new google.maps.InfoWindow();

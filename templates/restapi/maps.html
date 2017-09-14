@@ -83,6 +83,7 @@ var temp=[]
   for(j=0;j<data['Farms'][i]['Crops'].length;j++)
   {
 	contentInfo+="<li>Crop name:"+data['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data['Farms'][i]['Crops'][j].Seasons+"</li></ul></li>";
+  console.log(data['Farms'][i]['Crops'][j].Name);
   }
 
   contentInfo+="</ol></li></ul>";

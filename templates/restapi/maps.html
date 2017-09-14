@@ -20,6 +20,13 @@
     
     <script src="{% static "gmaps.js" %}"></script>
     <script>
+function bindInfoWindow(poly,map,infowindow, html) {
+    poly.addListener('click', function(clickEvent) {
+	  infowindow.setPosition(clickEvent.latLng);
+      infowindow.setContent(html);
+        infowindow.open(map,this);
+    });
+} 
 function getRandomColour(){
 	var letters="0123456789ABCDEF";
 	var colour="#";
@@ -73,8 +80,8 @@ infoWindow: {
     //var infoWindow=[]
 //var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
 for(i=0;i<data["Farms"].length;i++){
-console.log(data["Farms"].length);
-console.log(i);
+//console.log(data["Farms"].length);
+//console.log(i);
 var temp=[]  
   for(j=0;j<data["Farms"][i].plot.coordinates[0].length;j++)
   {
@@ -83,30 +90,26 @@ var temp=[]
   var contentInfo="<ul type='disc'><li>Area:"+(data['Farms'][i]['area']).toString()+"</li><li>Crops:<ol type='I'>";
   for(j=0;j<data['Farms'][i]['Crops'].length;j++)
   {
+	console.log("new");
+	console.log(i);console.log(j);
+
 	contentInfo+="<li>Crop name:"+data['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data['Farms'][i]['Crops'][j].Seasons+"</li></ul></li>";
   console.log(data['Farms'][i]['Crops'][j].Name);
   }
 
   contentInfo+="</ol></li></ul>";
-//infoWindow.push(new google.maps.InfoWindow({
- // content: contentInfo
-//}));
-//console.log(infoWindow);
-  map.drawPolygon({
+  var poly=map.drawPolygon({
   paths: temp,
   strokeColor: '#000000',
   strokeOpacity: 0.3,
   strokeWeight: 2,
   fillColor: getRandomColour(),
   fillOpacity: 0.4,
-  click: function(clickEvent) {
-    var position = clickEvent.latLng;
-    temp11=new google.maps.InfoWindow({ content: contentInfo}); 
-    temp11.setPosition(position);
-    temp11.open(map.map);
-  }
+ 
 });
-console.log(i);
+var infowindow = new google.maps.InfoWindow();
+bindInfoWindow(poly, map, infowindow, contentInfo); 
+//console.log(i);
 } 
     </script>
   </body>

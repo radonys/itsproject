@@ -70,6 +70,7 @@ infoWindow: {
     maxWidth: 100
   }
 });}
+    var infoWindow=[]
 //var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
 for(i=0;i<data["Farms"].length;i++){
 console.log(data["Farms"].length);
@@ -87,9 +88,9 @@ var temp=[]
   }
 
   contentInfo+="</ol></li></ul>";
-infoWindow = new google.maps.InfoWindow({
+infoWindow.push(new google.maps.InfoWindow({
   content: contentInfo
-});
+}));
   map.drawPolygon({
   paths: temp,
   strokeColor: '#000000',
@@ -99,8 +100,8 @@ infoWindow = new google.maps.InfoWindow({
   fillOpacity: 0.4,
   click: function(clickEvent) {
     var position = clickEvent.latLng;
-    infoWindow.setPosition(position);
-    infoWindow.open(map.map);
+    infoWindow[i].setPosition(position);
+    infoWindow[i].open(map.map);
   }
 });
 console.log(i);

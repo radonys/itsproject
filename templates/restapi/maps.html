@@ -106,7 +106,7 @@ for (var key in icons){
   legendcontent+= '<img src="' + icon + '"> ' + name+'<br>';
 }
 var cc = getRandomColour();
-legendcontent+='<div style="border: 1px solid black; color:'+cc+'"></div>Farms<br>';
+legendcontent+='<div style="border: 1px solid black; background:'+cc+';width:25px;height:25px;display:inline-block;opacity:0.3"></div>Farms<br>';
 map.addControl({
   position: 'top_right',
   content: legendcontent,

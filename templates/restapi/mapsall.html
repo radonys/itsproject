@@ -38,6 +38,28 @@ data=JSON.parse('{{ data|safe}}');//[[48.8577262,2.2928475],[48.8576973,2.292387
       });
 console.log(data[0]["Houses"][0].point.coordinates[1]);
 console.log(Object.keys(data).length);
+var icons = {
+          houses: {
+            name: 'Houses',
+            icon: 'http://maps.google.com/mapfiles/ms/micons/red-dot.png'
+          },
+          wells: {
+            name: 'Wells',
+            icon: 'http://maps.google.com/mapfiles/ms/micons/water.png'
+          },
+//          farms: {
+//            name: 'Farms',
+//            icon: "http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png"
+//          }
+        };
+var legend = document.getElementById('legend');
+for (var key in icons){
+  var type = icons[key];
+  var name = type.name;
+  var icon = type.icon;
+  legendcontent+= '<img src="' + icon + '"> ' + name+'<br>';
+}
+
 for(x=0;x<Object.keys(data).length;x++)
 {
 console.log(data[x]);
@@ -58,6 +80,7 @@ maxwidth:100
   }
 });}
 //vaishnav,I'm going to kill you
+var legendcontent=''
 for (i = 0; i < data[x]["Wells"].length; i++) {
 var contentInfo='<b>Yield,Date</b><br>'
 for(j=0;j<data[x]["Wells"][i].Yields.length;j++){
@@ -87,7 +110,7 @@ var temp=[]
   {
 	contentInfo+="<li>Crop name:"+data[x]['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data[x]['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data[x]['Farms'][i]['Crops'][j].Seasons+"</li></ul></li>";
   }
-
+legendcontent+='<div style="border: 1px solid black; background:'+cc+';width:25px;height:25px;display:inline-block;opacity:0.3"></div>Farms '+i.toString()+'<br>';
   contentInfo+="</ol></li></ul>";
   var poly=map.drawPolygon({
   paths: temp,
@@ -97,11 +120,24 @@ var temp=[]
   fillColor: cc,
   fillOpacity: 0.4,
 });
+
 var infowindow = new google.maps.InfoWindow();
 bindInfoWindow(poly, map, infowindow, contentInfo);
 }
+
+
 console.log(map);
-} 
+}
+map.addControl({
+  position: 'top_right',
+  content: legendcontent,
+  style: {
+    margin: '5px',
+    padding: '1px 6px',
+    border: 'solid 1px #717B87',
+    background: '#fff'
+  },
+});
     </script>
   </body>
 </html>

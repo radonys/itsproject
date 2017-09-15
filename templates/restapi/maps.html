@@ -92,10 +92,10 @@ var icons = {
             name: 'Wells',
             icon: 'http://maps.google.com/mapfiles/ms/micons/water.png'
           },
-          farms: {
-            name: 'Farms',
-            icon: "http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png"
-          }
+//          farms: {
+//            name: 'Farms',
+//            icon: "http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png"
+//          }
         };
 var legendcontent=''
 var legend = document.getElementById('legend');
@@ -105,6 +105,8 @@ for (var key in icons){
   var icon = type.icon;
   legendcontent+= '<img src="' + icon + '"> ' + name+'<br>';
 }
+var cc = getRandomColour();
+legendcontent+='<div style="border: 1px solid black; color:'+c'"></div>Farms<br>'
 map.addControl({
   position: 'top_right',
   content: legendcontent,
@@ -149,6 +151,7 @@ infoWindow: {
 });}
     //var infoWindow=[]
 //var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
+
 for(i=0;i<data["Farms"].length;i++){
 //console.log(data["Farms"].length);
 //console.log(i);
@@ -173,7 +176,7 @@ var temp=[]
   strokeColor: '#000000',
   strokeOpacity: 0.3,
   strokeWeight: 2,
-  fillColor: getRandomColour(),
+  fillColor: cc,
   fillOpacity: 0.4,
  
 });

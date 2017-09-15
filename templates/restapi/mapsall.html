@@ -1,10 +1,18 @@
 <!doctype html>
 <html>
   <head>
+<link href="https://developers.google.com/fusiontables/docs/samples/style/default.css" rel="stylesheet" type="text/css">
     <style>
       #map {
         width: 800px;
         height: 800px;
+      }
+#legend {
+        background: #FFF;
+        padding: 10px;
+        margin: 5px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
       }
     </style>
   </head>
@@ -52,6 +60,7 @@ var icons = {
 //            icon: "http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png"
 //          }
         };
+var legendcontent=''
 var legend = document.getElementById('legend');
 for (var key in icons){
   var type = icons[key];
@@ -80,7 +89,6 @@ maxwidth:100
   }
 });}
 //vaishnav,I'm going to kill you
-var legendcontent=''
 for (i = 0; i < data[x]["Wells"].length; i++) {
 var contentInfo='<b>Yield,Date</b><br>'
 for(j=0;j<data[x]["Wells"][i].Yields.length;j++){
@@ -98,6 +106,8 @@ infoWindow: {
 });}
 //var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
 var cc = getRandomColour();
+legendcontent+='<div style="border: 1px solid black; background:'+cc+';width:25px;height:25px;display:inline-block;opacity:0.3"></div>Farms '+x.toString()+'<br>';
+  contentInfo+="</ol></li></ul>";
 for(i=0;i<data[x]["Farms"].length;i++){
 
 var temp=[]  
@@ -110,8 +120,7 @@ var temp=[]
   {
 	contentInfo+="<li>Crop name:"+data[x]['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data[x]['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data[x]['Farms'][i]['Crops'][j].Seasons+"</li></ul></li>";
   }
-legendcontent+='<div style="border: 1px solid black; background:'+cc+';width:25px;height:25px;display:inline-block;opacity:0.3"></div>Farms '+i.toString()+'<br>';
-  contentInfo+="</ol></li></ul>";
+
   var poly=map.drawPolygon({
   paths: temp,
   strokeColor: '#000000',
@@ -138,6 +147,7 @@ map.addControl({
     background: '#fff'
   },
 });
+
     </script>
   </body>
 </html>

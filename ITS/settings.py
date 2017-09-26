@@ -25,7 +25,7 @@ SECRET_KEY = 'z=+v=c#f^vm8l2@n5*3)a(6#h@dof+4(y69(_3(_*-8s3d0^ry'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['still-coast-39183.herokuapp.com','farmereverywhere.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['still-coast-39183.herokuapp.com','farmereverywhere.herokuapp.com', '127.0.0.1','10.0.3.23']
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 # Application definition
@@ -78,12 +78,8 @@ WSGI_APPLICATION = 'ITS.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_db',
-        'USER': 'Vaishnav',
-        'PASSWORD': 'abcdef',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -135,7 +131,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
-DATABASES['default'].update(db_from_env)
+#DATABASES['default'].update(db_from_env)
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'

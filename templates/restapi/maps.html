@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+  <head>
+<link href="https://developers.google.com/fusiontables/docs/samples/style/default.css" rel="stylesheet" type="text/css">
+
+    <style>
+      #map {
+        width: 800px;
+        height: 800px;
+      }
+ #legend {
+        background: #FFF;
+        padding: 10px;
+        margin: 5px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+      }
+
+      .color {
+        border: 1px solid;
+        height: 50px;
+        width: 50px;
+        margin-right: 3px;
+        float: left;
+      }
+
+      .red {
+        background: #C00;
+      }
+
+      .yellow {
+        background: #FF3;
+      }
+
+      .green {
+        background: #6F0;
+      }
+
+      .blue {
+        background: #06C;
+      }
+
+      .purple {
+        background: #63C;
+      }
+
+    </style>
+  </head>
+  <body>
+<form action="" method="post">
+            {% csrf_token %}
+            <label>Enter id</label><input type="text" name="ID"><br>
+            <input type="submit" value="Submit">
+        </form>
+    <div id="map"></div>
+{% load staticfiles %}
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgcJqiV-Kbdio2bMKukIXk7Dkh6F0S0C8"></script>
+    
+    <script src="{% static "gmaps.js" %}"></script>
+    <script>
+function bindInfoWindow(poly,map,infowindow, html) {
+    poly.addListener('click', function(clickEvent) {
+	  infowindow.setPosition(clickEvent.latLng);
+      infowindow.setContent(html);
+        infowindow.open(map,this);
+    });
+} 
+function getRandomColour(){
+	var letters="0123456789ABCDEF";
+	var colour="#";
+	for(y=0;y<6;y++)
+	{
+		colour+=letters[Math.floor(Math.random()*16)];
+	}
+	return colour;
+}
+data=[]
+{% if r %}
+data=JSON.parse('{{ data|safe }}');//[[48.8577262,2.2928475],[48.8576973,2.292387],[48.8575015,2.2912906]]
+{% endif %}
+      var map = new GMaps({
+        el: '#map',
+        lat: data["Houses"][0].point.coordinates[1],
+        lng: data["Houses"][0].point.coordinates[0]
+      });
+var icons = {
+          houses: {
+            name: 'Houses',
+            icon: 'http://maps.google.com/mapfiles/ms/micons/red-dot.png'
+          },
+          wells: {
+            name: 'Wells',
+            icon: 'http://maps.google.com/mapfiles/ms/micons/water.png'
+          },
+//          farms: {
+//            name: 'Farms',
+//            icon: "http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png"
+//          }
+        };
+var legendcontent=''
+var legend = document.getElementById('legend');
+for (var key in icons){
+  var type = icons[key];
+  var name = type.name;
+  var icon = type.icon;
+  legendcontent+= '<img src="' + icon + '"> ' + name+'<br>';
+}
+var cc = getRandomColour();
+legendcontent+='<div style="border: 1px solid black; background:'+cc+';width:25px;height:25px;display:inline-block;opacity:0.3"></div>Farms<br>';
+map.addControl({
+  position: 'top_right',
+  content: legendcontent,
+  style: {
+    margin: '5px',
+    padding: '1px 6px',
+    border: 'solid 1px #717B87',
+    background: '#fff'
+  },
+});
+var contentInfo="Income: "+(data["Houses"][0].income).toString()+"<br>";
+for(j=0;j<data["Members"].length;j++){
+contentInfo+=data["Members"][j].Name+", "+data["Members"][j].Age+", "+data["Members"][j].Gender+"<br>";
+}
+for(j=0;j<data["Photos"].length;j++){
+contentInfo+="<img src='http://10.0.3.23:8003"+data["Photos"][j].file+"' height='200' width='200'>";
+}
+for (i = 0; i < data["Houses"].length; i++) {
+    map.addMarker({
+  lat: data["Houses"][i].point.coordinates[1],
+  lng: data["Houses"][i].point.coordinates[0],
+infoWindow: {
+    content: contentInfo,
+maxwidth:100
+  }
+});}
+//vaishnav,I'm going to kill you
+for (i = 0; i < data["Wells"].length; i++) {
+var contentInfo='<b>Yield,Date</b><br>'
+for(j=0;j<data["Wells"][i].Yields.length;j++){
+contentInfo+=data["Wells"][i].Yields[j].Yield+", "+data["Wells"][i].Yields[j].measured_date+"<br>";
+}
+    map.addMarker({
+  lat: data["Wells"][i].point.coordinates[1],
+  lng: data["Wells"][i].point.coordinates[0],
+
+ icon:'http://maps.google.com/mapfiles/ms/micons/water.png',
+infoWindow: {
+    content: contentInfo,
+    maxWidth: 100
+  }
+});}
+    //var infoWindow=[]
+//var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
+
+for(i=0;i<data["Farms"].length;i++){
+//console.log(data["Farms"].length);
+//console.log(i);
+var temp=[]  
+  for(j=0;j<data["Farms"][i].plot.coordinates[0].length;j++)
+  {
+	temp.push(data["Farms"][i].plot.coordinates[0][j].reverse());
+  }
+  var contentInfo="<ul type='disc'><li>Area:"+(data['Farms'][i]['area']).toString()+"</li><li>Crops:<ol type='I'>";
+  for(j=0;j<data['Farms'][i]['Crops'].length;j++)
+  {
+	console.log("new");
+	console.log(i);console.log(j);
+
+	contentInfo+="<li>Crop name:"+data['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data['Farms'][i]['Crops'][j].Seasons+"</li></ul></li>";
+  console.log(data['Farms'][i]['Crops'][j].Name);
+  }
+
+  contentInfo+="</ol></li></ul>";
+  var poly=map.drawPolygon({
+  paths: temp,
+  strokeColor: '#000000',
+  strokeOpacity: 0.3,
+  strokeWeight: 2,
+  fillColor: cc,
+  fillOpacity: 0.4,
+ 
+});
+var infowindow = new google.maps.InfoWindow();
+bindInfoWindow(poly, map, infowindow, contentInfo); 
+//console.log(i);
+} 
+    </script>
+  </body>
+</html>

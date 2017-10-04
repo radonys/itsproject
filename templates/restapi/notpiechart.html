@@ -1,0 +1,96 @@
+<html>
+  <head>
+    {% load staticfiles %}
+    <script src={% static "Chart.min.js" %}></script>
+    <script src={% static "Chart.js" %}></script>
+    <script src={% static "Chart.PieceLabel.min.js" %}></script>
+  </head>
+  <body>
+    <canvas id="radar-chart"align:left width:25px height:25px></canvas>
+    <canvas id="chart2" width:25px height:25px></canvas>
+    <script>
+    function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+  var x=new Chart(document.getElementById("radar-chart"), {
+  type: 'doughnut',
+  data: {
+    datasets: [{
+      data: [
+        4860,
+        2000,
+        130,
+        552,
+      ],
+      backgroundColor: [
+        "#F7464A",
+        "#46BFBD",
+        "#FDB45C",
+        "#949FB1",
+      ],
+      label: 'Poultry Count(x100)'
+    }],
+    labels: [
+            "Layer-Poultry",
+            "Broiler",
+            "Duck",
+            "Others"
+
+    ]
+  },
+  options:{
+  pieceLabel: {
+    render: 'percentage',
+    fontColor: '#000',
+    position: 'outside',
+    precision: 2
+  }
+}
+
+});
+var x=new Chart(document.getElementById("chart2"), {
+type: 'doughnut',
+data: {
+  datasets: [{
+    data: [
+      860,
+      1000,
+      330,
+      52,
+    ],
+    backgroundColor: [
+      "#F7464A",
+      "#46BFBD",
+      "#FDB45C",
+      "#949FB1",
+    ],
+    label: 'Poultry Count(x100)'
+  }],
+  labels: [
+          "Layer-Poultry",
+          "Broiler",
+          "Duck",
+          "Others"
+
+  ]
+},
+options:{
+pieceLabel: {
+  render: 'percentage',
+  fontColor: '#000',
+  position: 'outside',
+  precision: 2
+}
+}
+
+});
+
+    </script>
+
+  </body>
+</html>

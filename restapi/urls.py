@@ -11,5 +11,7 @@ urlpatterns = [
 	url(r'^members/', views.members,name="members"),
 	url(r'^crops/', views.crops,name="members"),
 	url(r'^houses/', views.area_data,name="maps"),
-	url(r'^housesall/', views.area_all,name="mapsall")
+	url(r'^housesall/', views.area_all,name="mapsall"),
+	url(r'^charts/', views.charts,name="charts"),
+    url(r'^poultry/', views.notpiechart,name="notpiechart")
 ]

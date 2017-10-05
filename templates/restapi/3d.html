@@ -21,21 +21,22 @@
 <body>
   <div id="cesiumContainer"></div>
   <script>
-    var viewer = new Cesium.Viewer('cesiumContainer');
-    var data = JSON.parse("{{data|safe}}");
-    var greenCylinder = viewer.entities.add({
-    name : 'Some shit well',
-    position: Cesium.Cartesian3.fromDegrees(79, 13, 0),
-    cylinder : {
-        length : 400,
-        topRadius : 100.0,
-        bottomRadius : 100.0,
-        material : Cesium.Color.GREEN.withAlpha(0.5),
-        outline : true,
-        outlineColor : Cesium.Color.DARK_GREEN
-      },
-    description:"Savitha STFU"
-});
+    var viewer = new Cesium.Viewer('cesiumContainer',options={"timeline":false,"animation":false,"vrButton":true});
+    var data = JSON.parse('{{data|safe}}');
+    for(i=0;i<data.length;i++)
+    {
+      viewer.entities.add({
+      name : "house no."+i.toString(),
+      position: Cesium.Cartesian3.fromDegrees(data[i].point.coordinates[0], data[i].point.coordinates[1],  Number(data[i].AvgYield/2)),
+      cylinder : {
+          length : Number(data[i].AvgYield),
+          topRadius : 100.0,
+          bottomRadius : 100.0,
+          material : Cesium.Color.BLUE.withAlpha(0.5),
+        },
+      description:`<ol><li>Average Yield:`+data[i].AvgYield+`</li></ol>`
+  });
+}
 viewer.zoomTo(viewer.entities);
   </script>
 </body>

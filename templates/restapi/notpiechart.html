@@ -1,0 +1,113 @@
+<html>
+  <head>
+    {% load staticfiles %}
+    <script src={% static "Chart.min.js" %}></script>
+    <script src={% static "Chart.js" %}></script>
+    <script src={% static "Chart.PieceLabel.min.js" %}></script>
+    <style>
+    #e2{position:absolute;right:120;}
+    #e1{position:absolute;left:120;}
+    </style>
+  </head>
+
+  <body>
+    <div id="e1">
+    <canvas id="radar-chart" width="400" height="400" ></canvas>
+  </div>
+  <div id="e2">
+    <canvas id="chart2" width="400" height="400"></canvas>
+  </div>
+    <script>
+    function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+  var x=new Chart(document.getElementById("radar-chart"), {
+  type: 'doughnut',
+  data: {
+    datasets: [{
+      data: [
+        4860,
+        2000,
+        130,
+        552,
+      ],
+      backgroundColor: [
+        "#F7464A",
+        "#46BFBD",
+        "#FDB45C",
+        "#949FB1",
+      ],
+      label: 'Poultry Count(x100)'
+    }],
+    labels: [
+            "Layer-Poultry",
+            "Broiler",
+            "Duck",
+            "Others"
+
+    ]
+  },
+  options:{
+    title: {
+      display: true,
+      text: 'Vellore(Urban)'
+    },
+  pieceLabel: {
+    render: 'percentage',
+    fontColor: '#000',
+    position: 'outside',
+    precision: 2
+  }
+}
+
+});
+var x=new Chart(document.getElementById("chart2"), {
+type: 'doughnut',
+data: {
+  datasets: [{
+    data: [
+      860,
+      1000,
+      330,
+      52,
+    ],
+    backgroundColor: [
+      "#F7464A",
+      "#46BFBD",
+      "#FDB45C",
+      "#949FB1",
+    ],
+    label: 'Poultry Count(x100)'
+  }],
+  labels: [
+          "Layer-Poultry",
+          "Broiler",
+          "Duck",
+          "Others"
+
+  ]
+},
+options:{
+  title: {
+    display: true,
+    text: 'Vellore(Rural)'
+  },
+pieceLabel: {
+  render: 'percentage',
+  fontColor: '#000',
+  position: 'outside',
+  precision: 2
+}
+}
+
+});
+
+    </script>
+
+  </body>
+</html>

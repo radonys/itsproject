@@ -13,4 +13,7 @@ urlpatterns = [
 	url(r'^houses/', views.area_data,name="maps"),
 	url(r'^housesall/', views.area_all,name="mapsall"),
     url(r'^3d/', views.map_3d,name="3d")
+	url(r'^housesall/', views.area_all,name="mapsall"),
+	url(r'^charts/', views.charts,name="charts"),
+    url(r'^poultry/', views.notpiechart,name="notpiechart")
 ]

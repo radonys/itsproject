@@ -67,3 +67,9 @@ def map_3d(request):
 	# data = requests.post('http://10.0.3.23:8003/houseall/')	#change housea accordingly
 	# r = True
 	return render(request,'restapi/3d.html',{})
+def charts(request):
+	r=True
+	return render(request,'restapi/charts.html',{"r":r})
+def notpiechart(request):
+	r=True
+	return render(request,'restapi/notpiechart.html',{"r":r})

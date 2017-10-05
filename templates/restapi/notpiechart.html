@@ -4,10 +4,19 @@
     <script src={% static "Chart.min.js" %}></script>
     <script src={% static "Chart.js" %}></script>
     <script src={% static "Chart.PieceLabel.min.js" %}></script>
+    <style>
+    #e2{position:absolute;right:120;}
+    #e1{position:absolute;left:120;}
+    </style>
   </head>
+
   <body>
-    <canvas id="radar-chart"align:left width:25px height:25px></canvas>
-    <canvas id="chart2" width:25px height:25px></canvas>
+    <div id="e1">
+    <canvas id="radar-chart" width="400" height="400" ></canvas>
+  </div>
+  <div id="e2">
+    <canvas id="chart2" width="400" height="400"></canvas>
+  </div>
     <script>
     function getRandomColor() {
     var letters = '0123456789ABCDEF'.split('');
@@ -44,6 +53,10 @@
     ]
   },
   options:{
+    title: {
+      display: true,
+      text: 'Vellore(Urban)'
+    },
   pieceLabel: {
     render: 'percentage',
     fontColor: '#000',
@@ -80,6 +93,10 @@ data: {
   ]
 },
 options:{
+  title: {
+    display: true,
+    text: 'Vellore(Rural)'
+  },
 pieceLabel: {
   render: 'percentage',
   fontColor: '#000',

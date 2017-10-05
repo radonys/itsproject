@@ -49,18 +49,21 @@ def crops(request):
 		return render(request,'restapi/crops.html',{ "r": r ,"data":data.text,"h":h })
 	else:
 		return render(request,'restapi/crops.html',{ "r": r })
-		
+
 def area_data(request):
 	r=False
 	if request.POST:
 		h=request.POST['ID'] #change to appropriate ID
 		data = requests.post('http://10.0.3.23:8003/housedat/'+str(h)+'/')
 		r = True
-		return render(request,'restapi/maps.html',{"r": r, "data":data.text}) 
+		return render(request,'restapi/maps.html',{"r": r, "data":data.text})
 	else:
 		return render(request,'restapi/maps.html',{ "r": r})
 def area_all(request):
 	data = requests.post('http://10.0.3.23:8003/houseall/')	#change housea accordingly
 	r = True
 	return render(request,'restapi/mapsall.html',{"r":r, "data":data.text})
-	
+def map_3d(request):
+	# data = requests.post('http://10.0.3.23:8003/houseall/')	#change housea accordingly
+	# r = True
+	return render(request,'restapi/3d.html',{})

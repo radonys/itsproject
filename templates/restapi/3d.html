@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Use correct character set. -->
+  <meta charset="utf-8">
+  {% load staticfiles %}
+  <!-- Tell IE to use the latest, best version. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="{% static 'cesium/Build/Cesium/Widgets/widgets.css' %}" type="text/css">
+  <title>Hello World!</title>
+  <script src="{% static 'cesium/Build/Cesium/Cesium.js'%}"></script>
+  <style>
+
+      html, body, #cesiumContainer {
+          width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+      }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script>
+    var viewer = new Cesium.Viewer('cesiumContainer');
+    var data = JSON.parse("{{data|safe}}");
+    var greenCylinder = viewer.entities.add({
+    name : 'Some shit well',
+    position: Cesium.Cartesian3.fromDegrees(79, 13, 0),
+    cylinder : {
+        length : 400,
+        topRadius : 100.0,
+        bottomRadius : 100.0,
+        material : Cesium.Color.GREEN.withAlpha(0.5),
+        outline : true,
+        outlineColor : Cesium.Color.DARK_GREEN
+      },
+    description:"Savitha STFU"
+});
+viewer.zoomTo(viewer.entities);
+  </script>
+</body>
+</html>

@@ -67,6 +67,10 @@ def map_3d(request):
 	data = requests.post('http://10.0.3.23:8003/wells/')	#change housea accordingly
 	r = True
 	return render(request,'restapi/3d.html',{"r":r, "data":data.text})
+def map_3d2(request):
+	data = requests.post('http://10.0.3.23:8003/wells/')	#change housea accordingly
+	r = True
+	return render(request,'restapi/3d.html',{"r":r, "data":data.text})
 def charts(request):
 	r=True
 	return render(request,'restapi/charts.html',{"r":r})

@@ -77,3 +77,7 @@ def charts(request):
 def notpiechart(request):
 	r=True
 	return render(request,'restapi/notpiechart.html',{"r":r})
+def circles(request):
+	data = requests.post('http://10.0.3.23:8003/houseall/')	#change housea accordingly
+	r = True
+	return render(request,'restapi/housecircles.html',{"r":r, "data":data.text})

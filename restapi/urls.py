@@ -16,5 +16,6 @@ urlpatterns = [
 	url(r'^housesall/', views.area_all,name="mapsall"),
 	url(r'^charts/', views.charts,name="charts"),
     url(r'^3d2/', views.map_3d2,name="3d2"),
+    url(r'^circles/', views.circles,name="circles"),
     url(r'^poultry/', views.notpiechart,name="notpiechart")
 ]

@@ -1,9 +1,180 @@
-<html>
-	<body>
-		<h1>Hello!</h1>
-		<a href="/households">Click to access households</a><br>
-        <a href="/photos">Click to access photos</a><br>
-        <a href="/members">Click to access members</a><br>
-        <a href="/farms">Click to access farms</a><br>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Farmer Everywhere</title>
+{% load staticfiles%}
+    <!-- Bootstrap -->
+    <link href="{% static 'farmereverywhere/css/bootstrap.css'%}" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'farmereverywhere/css/font-awesome.min.css'%}">
+	<link rel="stylesheet" href="{% static 'farmereverywhere/css/animate.css' %}">
+	<link href="{% static 'farmereverywhere/css/prettyPhoto.css'% }" rel="stylesheet">
+	<link href="{% static 'farmereverywhere/css/style.css' %}" rel="stylesheet" />	
+  </head>
+
+  <body>
+	<header>		
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="navigation">
+				<div class="container">					
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse.collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<div class="navbar-brand">
+							<a href="{% url 'index'%}"><h1><span>Farmer</span>Everywhere</h1></a>
+						</div>
+					</div>
+					
+					<div class="navbar-collapse collapse">							
+						<div class="menu">
+							<ul class="nav nav-tabs" role="tablist">
+								<!--li role="presentation"><a href="#">Dashboard</a></li-->
+								<li role="presentation"><a href="crop_suggest.html">Crop Suggestions</a></li>
+								<li role="presentation"><a href="poultry_manage.html">Poultry Management</a></li>								
+								<li role="presentation"><a href="#">Crop Details</a></li>
+								<li role="presentation"><a href="properties.html">Properties</a></li>
+								<li role="presentation"><a href="#">Translate</a></li>
+								<li role="presentation"><a href="#">Login</a></li>						
+							</ul>
+						</div>
+					</div>						
+				</div>
+			</div>	
+		</nav>		
+	</header>
+	
+	<section id="main-slider" class="no-margin">
+        <div class="carousel slide">      
+            <div class="carousel-inner">
+                <div class="item active" style="background-image: url(../static/farmereverywhere/images/slider/bg1.jpg); ">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h2 class="animation animated-item-1">Welcome to<br><span>Farmer Everywhere</span></h2>
+                                    <p class="animation animated-item-2">The place where Farmers and Productivity meets.</p>
+                                    <a class="btn-slide animation animated-item-3" href="#">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.item-->             
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+	</section><!--/#main-slider-->
+	
+	<div class="aboutus">
+		<div class="container">
+			<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+				<h4>GRAPHS</h4>
+			</div>
+
+			<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">	
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table table-bordered">
+								<tr>
+									<th><center>News</center></th>
+								</tr>
+								<tr>
+									<td rowspan="8">Nam tempor velit sed turpis imperdiet vestibulum. In mattis leo ut sapien euismod id feugiat mauris euismod. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus id nulla risus, vel tincidunt turpis. Aliquam a nulla mi, placerat blandit eros. In neque lectus, lobortis a varius a, hendrerit eget dolor. Fusce scelerisque, sem ut viverra sollicitudin, est turpis blandit lacus, in pretium lectus sapien at est. Integer pretium ipsum sit amet dui feugiat vitae dapibus odio eleifend. As a describer of life and manners, he must be allowed to stand perhaps the first of the first rank. His humour, which, as Steele observes, is peculiar to himself, is so happily diffused as to give the grace of novelty to domestic scenes and daily occurrences. He never "o'ersteps the modesty of nature," nor raises merriment or wonder by the violation of truth. His figures neither divert by distortion nor amaze by aggravation. He copies life with so much fidelity that he can be hardly said to invent; yet his exhibitions have an air so much original, that it is difficult to suppose them not merely the product of imagination.</td>
+								</tr>
+								<tr>
+								</tr>
+							</table>
+						</div>
+					</div>			
+			</div>
+
+			<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">	
+					<div class="col-md-12 wow fadeInDown">
+						<div class="table-responsive">          
+							<table class="table">
+								<thead><tr>
+									<th>Helpful Sites</th>
+								</tr></thead>
+								<tr>
+									<td>Site 1</td>
+								</tr>
+								<tr>
+									<td>Site 2</td>
+								</tr>
+								<tr>
+									<td>Site 3</td>
+								</tr>
+								<tr>
+									<td>Site 4</td>
+								</tr>
+							</table>
+						</div>
+					</div>			
+			</div>
+
+			<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">	
+				<div class="col-md-10 wow fadeInDown">
+					<div class="container">          
+						<h3>Write to us</h3>
+						<form>
+							<div class="form-group">
+								<label for="email">Email:</label>
+								<p class="form-control-static">someone@example.com</p>
+								<label for="comment">Comment:</label>
+								<textarea class="form-control" rows="5" id="comment"></textarea>
+							</div>
+						</form>
+					</div>
+				</div>			
+			</div>
+
+		</div>
+	</div>
+	
+	<footer>
+		<div class="footer">
+			<div class="container">
+				<div class="social-icon">
+					<div class="col-md-4">
+						<ul class="social-network">
+							<li><a href="#" class="fb tool-tip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#" class="twitter tool-tip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#" class="gplus tool-tip" title="Google Plus"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="#" class="linkedin tool-tip" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+							<li><a href="#" class="ytube tool-tip" title="You Tube"><i class="fa fa-youtube-play"></i></a></li>
+						</ul>	
+					</div>
+				</div>
+				
+				<div class="col-md-4 col-md-offset-4">
+					<div class="copyright">
+						&copy; Farmer Everywhere. All Rights Reserved.
+                        <div class="credits">
+                        </div>
+					</div>
+				</div>						
+			</div>
+			
+			<div class="pull-right">
+				<a href="#home" class="scrollup"><i class="fa fa-angle-up fa-3x"></i></a>
+			</div>		
+		</div>
+	</footer>
+
+	
+	
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="{% static 'farmereverywhere/js/jquery-2.1.1.min.js'% }"></script>	
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'farmereverywhere/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'farmereverywhere/js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'farmereverywhere/js/jquery.isotope.min.js' %}"></script>  
+	<script src="{% static 'farmereverywhere/js/wow.min.js' %}"</script>
+	<script src="{% static 'farmereverywhere/js/functions.js' %}"></script>
+	
+</body>
 </html>

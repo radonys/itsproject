@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{% static 'cesium/Build/Cesium/Widgets/widgets.css' %}" type="text/css">
   <title>Hello World!</title>
   <script src="{% static 'cesium/Build/Cesium/Cesium.js'%}"></script>
+  <script src={% static "Chart.min.js" %}></script>
+  <script src={% static "Chart.js" %}></script>
   <style>
 
       html, body, #cesiumContainer {
@@ -21,23 +23,77 @@
 <body>
   <div id="cesiumContainer"></div>
   <script>
-    var viewer = new Cesium.Viewer('cesiumContainer',options={"timeline":false,"animation":false,"vrButton":true});
-    var data = JSON.parse('{{data|safe}}');
-    for(i=0;i<data.length;i++)
-    {
-      viewer.entities.add({
-      name : "house no."+i.toString(),
-      position: Cesium.Cartesian3.fromDegrees(data[i].point.coordinates[0], data[i].point.coordinates[1],  Number(data[i].AvgYield/2)),
-      cylinder : {
-          length : Number(data[i].AvgYield),
-          topRadius : 100.0,
-          bottomRadius : 100.0,
-          material : Cesium.Color.BLUE.withAlpha(0.5),
-        },
-      description:`<ol><li>Average Yield:`+data[i].AvgYield+`</li></ol>`
-  });
+  var viewer = new Cesium.Viewer('cesiumContainer',options={"timeline":false,"animation":false,"vrButton":true});
+  for(i=0;i<1;i++)
+  {
+    viewer.entities.add({
+    name : "house no."+i.toString(),
+    position: Cesium.Cartesian3.fromDegrees(0,0, 100),
+    cylinder : {
+        length :100,
+        topRadius : 100.0,
+        bottomRadius : 100.0,
+        material : Cesium.Color.BLUE.withAlpha(0.5),
+      },
+    description:`<canvas id="radar-chart" width="800" height="450"></canvas>`
+});
 }
 viewer.zoomTo(viewer.entities);
+  function getRandomColor() {
+  var letters = '0123456789ABCDEF'.split('');
+  var color = '#';
+  for (var i = 0; i < 6; i++ ) {
+      color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+  new Chart(document.getElementById("radar-chart"), {
+  type: 'bar',
+  data: {
+    labels: ["2005", "2006", "2007", "2008","2009"],
+    datasets: [
+      {
+        label: "Rice",
+        backgroundColor: getRandomColor(),
+        data: [83.1317,91.7934,93.3553,96.6929,99.1825]
+      }, {
+        label: "Wheat",
+        backgroundColor:getRandomColor(),
+        data: [68.6369,69.3545,75.8067,78.5702,80.6794]
+      }, {
+        label: "Jowar",
+        backgroundColor:getRandomColor(),
+        data: [7.2443,7.6296,7.1508,7.9259,7.2456]
+      }, {
+        label: "Maize",
+        backgroundColor:getRandomColor(),
+        data: [14.7099,15.097,18.9554,19.7314,16.719467]
+      }
+
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Year wise yield of Crops'
+    },
+    scales: {
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: "Yield( KTon)"
+        }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: "Years"
+        }
+      }]
+    }
+  }
+});
+
   </script>
 </body>
 </html>

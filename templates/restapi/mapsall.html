@@ -1,6 +1,10 @@
 <!doctype html>
 <html>
   <head>
+    {% load staticfiles %}
+    <script src={% static "Chart.min.js" %}></script>
+    <script src={% static "Chart.js" %}></script>
+    <script src={% static "Chart.PieceLabel.min.js" %}></script>
 <link href="https://developers.google.com/fusiontables/docs/samples/style/default.css" rel="stylesheet" type="text/css">
     <style>
       #map {
@@ -18,17 +22,56 @@
   </head>
   <body>
     <div id="map"></div>
+    <canvas id="piechart" width="800px" height="800px"></canvas>
 {% load staticfiles %}
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="{% static "gmaps.js" %}"></script>
     <script>
-function bindInfoWindow(poly,map,infowindow, html) {
+    data=JSON.parse('{{ data|safe}}');
+function bindInfoWindow(poly,map,infowindow, html,hid,fid) {
     poly.addListener('click', function(clickEvent) {
+      label_arr=[];
+      data_arr=[];
+      for(new_in=0;new_in<data[hid]['Farms'][fid]['Crops'].length;new_in++)
+      {
+        data_arr.push(data[hid]["Farms"][fid]["Crops"][new_in].Area);
+        label_arr.push(data[hid]["Farms"][fid]["Crops"][new_in].Name);
+      }
+      window.alert(data_arr);
+      var x=new Chart(document.getElementById("piechart"), {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: data_arr,
+          backgroundColor: [
+            "#F7464A",
+            "#46BFBD",
+            "#FDB45C",
+            "#949FB1",
+          ],
+          label: 'Poultry Count(x100)'
+        }],
+        labels: label_arr
+      },
+      options:{
+        title: {
+          display: true,
+          text: 'Vellore(Rural)'
+        },
+      pieceLabel: {
+        render: 'percentage',
+        fontColor: '#000',
+        position: 'outside',
+        precision: 2
+      }
+      }
+
+      });
 	  infowindow.setPosition(clickEvent.latLng);
       infowindow.setContent(html);
         infowindow.open(map,this);
     });
-} 
+}
 function getRandomColour(){
 	var letters="0123456789ABCDEF";
 	var colour="#";
@@ -38,7 +81,7 @@ function getRandomColour(){
 	}
 	return colour;
 }
-data=JSON.parse('{{ data|safe}}');//[[48.8577262,2.2928475],[48.8576973,2.292387],[48.8575015,2.2912906]]
+//[[48.8577262,2.2928475],[48.8576973,2.292387],[48.8575015,2.2912906]]
       var map = new GMaps({
         el: '#map',
         lat: data[0]["Houses"][0].point.coordinates[1],
@@ -88,7 +131,8 @@ infoWindow: {
 maxwidth:100
   }
 });}
-//vaishnav,I'm going to kill you
+
+
 for (i = 0; i < data[x]["Wells"].length; i++) {
 var contentInfo='<b>Yield,Date</b><br>'
 for(j=0;j<data[x]["Wells"][i].Yields.length;j++){
@@ -110,7 +154,7 @@ legendcontent+='<div style="border: 1px solid black; background:'+cc+';width:25p
   contentInfo+="</ol></li></ul>";
 for(i=0;i<data[x]["Farms"].length;i++){
 
-var temp=[]  
+var temp=[]
   for(j=0;j<data[x]["Farms"][i].plot.coordinates[0].length;j++)
   {
 	temp.push(data[x]["Farms"][i].plot.coordinates[0][j].reverse());
@@ -131,7 +175,7 @@ var temp=[]
 });
 
 var infowindow = new google.maps.InfoWindow();
-bindInfoWindow(poly, map, infowindow, contentInfo);
+bindInfoWindow(poly, map, infowindow, contentInfo,x,i);
 }
 
 

@@ -22,6 +22,17 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="{% static "gmaps.js" %}"></script>
     <script>
+    	function bindInfoWindow(poly,map,infowindow, html) {
+    poly.addListener('click', function(clickEvent) {
+	  infowindow.setPosition(clickEvent.latLng);
+      infowindow.setContent(html);
+        infowindow.open(map,this);
+    });
+} 
+    	function getColor(income)
+    	{
+    		return income>5000? "#000000": income>4000? "#800015" : income>3000? "#ff002b" : income>2000? "#ff8095" : income>1000? "#ffccd5" : "#ffff00";
+    	}
 data=JSON.parse('{{ data|safe}}');//[[48.8577262,2.2928475],[48.8576973,2.292387],[48.8575015,2.2912906]]
       var map = new GMaps({
         el: '#map',
@@ -39,21 +50,41 @@ contentInfo+="<img src='http://10.0.3.23:8003"+data[x]["Photos"][j].file+"' heig
 }
 console.log(data[0]["Houses"][0].point.coordinates[1]);
 console.log(data[0]["Houses"][0].point.coordinates[0]);
-
 for (i = 0; i < data[x]["Houses"].length; i++) {
-    map.drawCircle({
+	map.addMarker({
+		lat: data[x]["Houses"][i].point.coordinates[1],
+		lng: data[x]["Houses"][i].point.coordinates[0],
+	});
+	eh=data[x]["Members"].length;
+	col=getColor(data[x]["Houses"][i].income);
+    var circle=map.drawCircle({
   lat: data[x]["Houses"][i].point.coordinates[1],
   lng: data[x]["Houses"][i].point.coordinates[0],
-  radius:100,
-  fillColor: 'red',
+  radius:100*eh,
+  fillColor: col,
   fillOpacity: 0.5,
   strokeWeight: 0,
-});}
-
+});
+    var infowindow = new google.maps.InfoWindow();
+bindInfoWindow(circle, map, infowindow, contentInfo);
+console.log(eh);
+console.log(col);
+}
 
 
 console.log(map);
 }
+legendcontent='Houses classified by income<br><div style="border: 1px solid black; background:#ffff00;width:25px;height:25px;display:inline-block;opacity:0.3"></div>0-1000<br><div style="border: 1px solid black; background:#ffccd5;width:25px;height:25px;display:inline-block;opacity:0.3"></div>1000-2000<br><div style="border: 1px solid black; background:#ff8095;width:25px;height:25px;display:inline-block;opacity:0.3"></div>2000-3000<br><div style="border: 1px solid black; background:#ff002b;width:25px;height:25px;display:inline-block;opacity:0.3"></div>3000-4000<br><div style="border: 1px solid black; background:#800015;width:25px;height:25px;display:inline-block;opacity:0.3"></div>4000-5000<br><div style="border: 1px solid black; background:#000000;width:25px;height:25px;display:inline-block;opacity:0.3"></div>>5000<br>';
+map.addControl({
+  position: 'top_right',
+  content: legendcontent,
+  style: {
+    margin: '5px',
+    padding: '1px 6px',
+    border: 'solid 1px #717B87',
+    background: '#fff'
+  },
+});
 
     </script>
   </body>

@@ -8,8 +8,8 @@
 <link href="https://developers.google.com/fusiontables/docs/samples/style/default.css" rel="stylesheet" type="text/css">
     <style>
       #map {
-        width: 800px;
-        height: 800px;
+
+        height: 500px;
       }
 #legend {
         background: #FFF;
@@ -22,8 +22,8 @@
   </head>
   <body>
     <div id ="outer">
-    <div id="map" style="float:left"></div>
-    <canvas id="piechart" style="float:right"width="12.5%" ></canvas>
+    <div id="map" style="width:100%;float:left"></div>
+    <canvas id="piechart" style="float:right;width:12.5%" ></canvas>
   </div>
 {% load staticfiles %}
     <script src="https://maps.googleapis.com/maps/api/js"></script>
@@ -50,14 +50,14 @@ function bindInfoWindow(poly,map,infowindow, html,hid,fid) {
             "#FDB45C",
             "#949FB1",
           ],
-          label: 'Poultry Count(x100)'
+          label: 'Area wise Crops'
         }],
         labels: label_arr
       },
       options:{
         title: {
           display: true,
-          text: 'Vellore(Rural)'
+          text: 'Area wise Crops'
         },
       pieceLabel: {
         render: 'percentage',

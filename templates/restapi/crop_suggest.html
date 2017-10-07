@@ -26,7 +26,7 @@
 							<span class="icon-bar"></span>
 						</button>
 						<div class="navbar-brand">
-							<a href="index.html"><h1><span>Farmer</span>Everywhere</h1></a>
+							<a href="{% url 'index'%}"><h1><span>Farmer</span>Everywhere</h1></a>
 						</div>
 					</div>
 
@@ -34,10 +34,10 @@
 						<div class="menu">
 							<ul class="nav nav-tabs" role="tablist">
 								<!--li role="presentation"><a href="#">Dashboard</a></li-->
-                <li role="presentation"><a href="{% url 'cropsug'%}">Crop Suggestions</a></li>
+                <li role="presentation"><a class="active" href="{% url 'cropsug'%}">Crop Suggestions</a></li>
                 <li role="presentation"><a href="{% url 'poultry'%}">Poultry Management</a></li>
                 <li role="presentation"><a href="#">Crop Details</a></li>
-                <li role="presentation"><a class="active" href="{% url 'property'%}">Properties</a></li>
+                <li role="presentation"><a href="{% url 'property'%}">Properties</a></li>
                 <li role="presentation"><a href="#">Translate</a></li>
                 <li role="presentation"><a href="#">Login</a></li>
 							</ul>

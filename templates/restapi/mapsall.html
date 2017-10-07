@@ -22,7 +22,7 @@
   </head>
   <body>
     <div id="map"></div>
-    <canvas id="piechart" width="800px" height="800px"></canvas>
+    <canvas id="piechart" width="400px" height="400px"></canvas>
 {% load staticfiles %}
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="{% static "gmaps.js" %}"></script>
@@ -37,7 +37,6 @@ function bindInfoWindow(poly,map,infowindow, html,hid,fid) {
         data_arr.push(data[hid]["Farms"][fid]["Crops"][new_in].Area);
         label_arr.push(data[hid]["Farms"][fid]["Crops"][new_in].Name);
       }
-      window.alert(data_arr);
       var x=new Chart(document.getElementById("piechart"), {
       type: 'doughnut',
       data: {
@@ -162,7 +161,7 @@ var temp=[]
   var contentInfo="<ul type='disc'><li>Area:"+(data[x]['Farms'][i].area).toString()+"</li><li>Crops:<ol type='I'>";
   for(j=0;j<data[x]['Farms'][i]['Crops'].length;j++)
   {
-	contentInfo+="<li>Crop name:"+data[x]['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data[x]['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data[x]['Farms'][i]['Crops'][j].Seasons+"</li></ul></li>";
+	contentInfo+="<li>Crop name:"+data[x]['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data[x]['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data[x]['Farms'][i]['Crops'][j].Seasons+"</li><li>Area:"+data[x]['Farms'][i]['Crops'][j].Area.toString()+"</li></ul></li>";
   }
 
   var poly=map.drawPolygon({
@@ -180,7 +179,7 @@ bindInfoWindow(poly, map, infowindow, contentInfo,x,i);
 
 
 console.log(map);
-}
+}var x=docu
 map.addControl({
   position: 'top_right',
   content: legendcontent,

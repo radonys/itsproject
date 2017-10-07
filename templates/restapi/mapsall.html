@@ -21,8 +21,10 @@
     </style>
   </head>
   <body>
-    <div id="map"></div>
-    <canvas id="piechart" width="400px" height="400px"></canvas>
+    <div id ="outer">
+    <div id="map" style="float:left"></div>
+    <canvas id="piechart" style="float:right"width="12.5%" ></canvas>
+  </div>
 {% load staticfiles %}
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="{% static "gmaps.js" %}"></script>

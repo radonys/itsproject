@@ -13,6 +13,13 @@
 	<link rel="stylesheet" href="{% static 'farmereverywhere/css/animate.css' %}">
 	<link href="{% static 'farmereverywhere/css/prettyPhoto.css' %}" rel="stylesheet">
     <link href="{% static 'farmereverywhere/css/style.css' %}" rel="stylesheet" />
+    <script src={% static "Chart.min.js" %}></script>
+    <script src={% static "Chart.js" %}></script>
+    <script src={% static "Chart.PieceLabel.min.js" %}></script>
+    <style>
+            #e2{position:absolute;right:120;}
+            #e1{position:absolute;left:120;}
+    </style>
   </head>
 
   <body>
@@ -28,20 +35,20 @@
 							<span class="icon-bar"></span>
 						</button>
 						<div class="navbar-brand">
-							<a href="index.html"><h1><span>Farmer</span>Everywhere</h1></a>
+                                <a href="{% url 'index'%}"><h1><span>Farmer</span>Everywhere</h1></a>
+							</div>
 						</div>
-					</div>
 
-					<div class="navbar-collapse collapse">
-						<div class="menu">
-							<ul class="nav nav-tabs" role="tablist">
-								<!--li role="presentation"><a href="#">Dashboard</a></li-->
-								<li role="presentation"><a href="crop_suggest.html">Crop Suggestions</a></li>
-								<li role="presentation"><a href="poultry_manage.html">Poultry Management</a></li>
-								<li role="presentation"><a href="#">Crop Details</a></li>
-								<li role="presentation"><a href="properties.html">Properties</a></li>
-								<li role="presentation"><a href="#">Translate</a></li>
-								<li role="presentation"><a href="#">Login</a></li>
+						<div class="navbar-collapse collapse">
+							<div class="menu">
+								<ul class="nav nav-tabs" role="tablist">
+									<!--li role="presentation"><a href="#">Dashboard</a></li-->
+									<li role="presentation"><a href="{% url 'cropsug'%}">Crop Suggestions</a></li>
+									<li role="presentation"><a class="active" href="{% url 'poultry'%}">Poultry Management</a></li>
+									<li role="presentation"><a href="#">Crop Details</a></li>
+									<li role="presentation"><a href="{% url 'property'%}">Properties</a></li>
+									<li role="presentation"><a href="#">Translate</a></li>
+									<li role="presentation"><a href="#">Login</a></li>
 							</ul>
 						</div>
 					</div>
@@ -82,7 +89,7 @@
                                 <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i> Search</button>
                             </div>
                         </div>
-                        <br>
+
                         <div class="recent-work-wrap">
                             <div class="overlay">
                                 <div class="recent-work-inner">
@@ -111,7 +118,11 @@
             <div class="">
                 <div class="portfolio-items"  id="hide">
                     <div class="portfolio-item poultry col-md-12">
-                        <h3>GRAPHS</h3>
+                        <center><h3>GRAPHS</h3></center>
+                                <div class="col-md-6">
+                                <canvas id="radar-chart"></canvas></div>
+                                <div class="col-md-6">
+                                <canvas id="chart2"></canvas></div>
                     </div><!--/.portfolio-item-->
                 </div>
             </div>
@@ -159,5 +170,97 @@
     <script src="{% static 'farmereverywhere/js/jquery.isotope.min.js' %}"></script>
     <script src="{% static 'farmereverywhere/js/wow.min.js' %}"></script>
     <script src="{% static 'farmereverywhere/js/functions.js' %}"></script>
+    <script>
+            function getRandomColor() {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++ ) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+          var x=new Chart(document.getElementById("radar-chart"), {
+          type: 'doughnut',
+          data: {
+            datasets: [{
+              data: [
+                4860,
+                2000,
+                130,
+                552,
+              ],
+              backgroundColor: [
+                "#F7464A",
+                "#46BFBD",
+                "#FDB45C",
+                "#949FB1",
+              ],
+              label: 'Poultry Count(x100)'
+            }],
+            labels: [
+                    "Layer-Poultry",
+                    "Broiler",
+                    "Duck",
+                    "Others"
+
+            ]
+          },
+          options:{
+            title: {
+              display: true,
+              text: 'Vellore(Urban)'
+            },
+          pieceLabel: {
+            render: 'percentage',
+            fontColor: '#000',
+            position: 'outside',
+            precision: 2
+          }
+        }
+
+        });
+        var x=new Chart(document.getElementById("chart2"), {
+        type: 'doughnut',
+        data: {
+          datasets: [{
+            data: [
+              860,
+              1000,
+              330,
+              52,
+            ],
+            backgroundColor: [
+              "#F7464A",
+              "#46BFBD",
+              "#FDB45C",
+              "#949FB1",
+            ],
+            label: 'Poultry Count(x100)'
+          }],
+          labels: [
+                  "Layer-Poultry",
+                  "Broiler",
+                  "Duck",
+                  "Others"
+
+          ]
+        },
+        options:{
+          title: {
+            display: true,
+            text: 'Vellore(Rural)'
+          },
+        pieceLabel: {
+          render: 'percentage',
+          fontColor: '#000',
+          position: 'outside',
+          precision: 2
+        }
+        }
+
+        });
+
+            </script>
+
 </body>
 </html>

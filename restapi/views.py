@@ -64,13 +64,14 @@ def area_all(request):
 	r = True
 	return render(request,'restapi/mapsall.html',{"r":r, "data":data.text})
 def map_3d(request):
-	# data = requests.post('http://10.0.3.23:8003/yield/')	#change housea accordingly
-	# r = True
-	return render(request,'restapi/3d.html',{})
-def map_3d2(request):
-	data = requests.post('http://10.0.3.23:8003/wells/')	#change housea accordingly
+	# data = requests.post('http://10.0.3.23:8003/wells/')	#change housea accordingly
 	r = True
-	return render(request,'restapi/3d.html',{"r":r, "data":data.text})
+	data1 = requests.post('http://10.0.3.23:8003/houseall/')
+	return render(request,'restapi/3d.html',{"data1":data1.text,"r":r})
+def map_3d2(request):
+	# data = requests.post('http://10.0.3.23:8003/wells/')	#change housea accordingly
+	# r = True
+	return render(request,'restapi/3d2.html',{});
 def charts(request):
 	r=True
 	return render(request,'restapi/charts.html',{"r":r})
@@ -81,3 +82,9 @@ def circles(request):
 	data = requests.post('http://10.0.3.23:8003/houseall/')	#change housea accordingly
 	r = True
 	return render(request,'restapi/housecircles.html',{"r":r, "data":data.text})
+def cropsug(request):
+	return render(request,'restapi/crop_suggest.html',{})
+def polman(request):
+	return render(request,'restapi/poultry_manage.html',{})
+def properties_m(request):
+	return render(request,'restapi/properties.html',{})

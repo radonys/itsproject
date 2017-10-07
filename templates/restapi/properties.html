@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% load staticfiles %}
+
     <title>Farmer Everywhere</title>
 
     <!-- Bootstrap -->
@@ -12,6 +15,12 @@
 	<link rel="stylesheet" href="{% static 'farmereverywhere/css/animate.css' %}">
 	<link href="{% static 'farmereverywhere/css/prettyPhoto.css' %}" rel="stylesheet">
 	<link href="{% static 'farmereverywhere/css/style.css' %}" rel="stylesheet" />
+	<style>
+		#id1{
+			height: 500px;
+			width: 100%;
+		}
+	</style>
   </head>
   <body>
 	<header>
@@ -26,20 +35,20 @@
 							<span class="icon-bar"></span>
 						</button>
 						<div class="navbar-brand">
-							<a href="index.html"><h1><span>Farmer</span>Everywhere</h1></a>
+								<a href="{% url 'index'%}"><h1><span>Farmer</span>Everywhere</h1></a>
+							</div>
 						</div>
-					</div>
 
-					<div class="navbar-collapse collapse">
-						<div class="menu">
-							<ul class="nav nav-tabs" role="tablist">
-								<!--li role="presentation"><a href="#">Dashboard</a></li-->
-								<li role="presentation"><a href="crop_suggest.html">Crop Suggestions</a></li>
-								<li role="presentation"><a href="poultry_manage.html">Poultry Management</a></li>
-								<li role="presentation"><a href="#">Crop Details</a></li>
-								<li role="presentation"><a href="properties.html">Properties</a></li>
-								<li role="presentation"><a href="#">Translate</a></li>
-								<li role="presentation"><a href="#">Login</a></li>
+						<div class="navbar-collapse collapse">
+							<div class="menu">
+								<ul class="nav nav-tabs" role="tablist">
+									<!--li role="presentation"><a href="#">Dashboard</a></li-->
+									<li role="presentation"><a href="{% url 'cropsug'%}">Crop Suggestions</a></li>
+									<li role="presentation"><a href="{% url 'poultry'%}">Poultry Management</a></li>
+									<li role="presentation"><a href="#">Crop Details</a></li>
+									<li role="presentation"><a class="active" href="{% url 'property'%}">Properties</a></li>
+									<li role="presentation"><a href="#">Translate</a></li>
+									<li role="presentation"><a href="#">Login</a></li>
 							</ul>
 						</div>
 					</div>
@@ -47,7 +56,7 @@
 			</div>
 		</nav>
 	</header>
-
+	<div class="row">
 	<div id="breadcrumb">
 		<div class="container">
 			<div class="breadcrumb">
@@ -55,13 +64,37 @@
 				<li>Properties</li>
 			</div>
 		</div>
-	</div>
-
+	</div></div>
+	<div class="row">
 	<div class="services">
-		<div class="container">
+		<div class="col-md-12">
 			<h3>3D Map</h3>
+			<iframe src="{% url '3d'%}" id="id1">
+				<p>Your browser does not support iframes.</p>
+			  </iframe>
 		</div>
 	</div>
+</div>
+<div class="row">
+<div class="services">
+  <div class="col-md-12">
+    <h3>2D Map 1</h3>
+    <iframe src="{% url 'mapsall'%}" id="id1">
+      <p>Your browser does not support iframes.</p>
+      </iframe>
+  </div>
+</div>
+</div>
+<div class="row">
+<div class="services">
+  <div class="col-md-12">
+    <h3>2D Map 2</h3>
+    <iframe src="{% url 'circles'%}" id="id1">
+      <p>Your browser does not support iframes.</p>
+      </iframe>
+  </div>
+</div>
+</div>
 
 
 	<footer>
@@ -94,13 +127,32 @@
 	</footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="{% static 'farmereverywhere/js/jquery-2.1.1.min.js"></script>
+		<script src="{% static 'farmereverywhere/js/jquery-2.1.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'farmereverywhere/js/bootstrap.min.js' %}"></script>
 	<script src="{% static 'farmereverywhere/js/jquery.prettyPhoto.js' %}"></script>
     <script src="{% static 'farmereverywhere/js/jquery.isotope.min.js' %}"></script>
 	<script src="{% static 'farmereverywhere/js/wow.min.js' %}"></script>
 	<script src="{% static 'farmereverywhere/js/functions.js' %}"></script>
+	<!-- <script src="{% static 'cesium/Build/Cesium/Cesium.js'%}"></script> -->
+	 <!-- <script>
+			var viewer = new Cesium.Viewer('cesiumContainer',options={"timeline":false,"animation":false,"vrButton":true});
+			for(i=0;i<1;i++)
+			{
+			  viewer.entities.add({
+			  name : "house no."+i.toString(),
+			  position: Cesium.Cartesian3.fromDegrees(0,0, 100),
+			  cylinder : {
+				  length :100,
+				  topRadius : 100.0,
+				  bottomRadius : 100.0,
+				  material : Cesium.Color.BLUE.withAlpha(0.5),
+				},
+			  description:`<canvas id="radar-chart" width="800" height="450"></canvas>`
+		  });
+		  }
+		  viewer.zoomTo(viewer.entities);
 
+			</script>  -->
 </body>
 </html>

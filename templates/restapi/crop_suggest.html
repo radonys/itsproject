@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Farmer Everywhere</title>
-
+{% load staticfiles%}
     <!-- Bootstrap -->
     <link href="{% static 'farmereverywhere/css/bootstrap.css' %}" rel="stylesheet">
 	<link rel="stylesheet" href="{% static 'farmereverywhere/css/font-awesome.min.css' %}">
@@ -34,12 +34,12 @@
 						<div class="menu">
 							<ul class="nav nav-tabs" role="tablist">
 								<!--li role="presentation"><a href="#">Dashboard</a></li-->
-								<li role="presentation"><a href="crop_suggest.html">Crop Suggestions</a></li>
-								<li role="presentation"><a href="poultry_manage.html">Poultry Management</a></li>
-								<li role="presentation"><a href="#">Crop Details</a></li>
-								<li role="presentation"><a href="properties.html">Properties</a></li>
-								<li role="presentation"><a href="#">Translate</a></li>
-								<li role="presentation"><a href="#">Login</a></li>
+                <li role="presentation"><a href="{% url 'cropsug'%}">Crop Suggestions</a></li>
+                <li role="presentation"><a href="{% url 'poultry'%}">Poultry Management</a></li>
+                <li role="presentation"><a href="#">Crop Details</a></li>
+                <li role="presentation"><a class="active" href="{% url 'property'%}">Properties</a></li>
+                <li role="presentation"><a href="#">Translate</a></li>
+                <li role="presentation"><a href="#">Login</a></li>
 							</ul>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 	<div class="aboutus">
 		<div class="container">
 			<div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-				<img src="images/7.jpg" class="img-responsive">
+				<img src="{% static 'farmereverywhere/images/7.jpg' %}" class="img-responsive">
 				<h4>MAP</h4>
 			</div>
 

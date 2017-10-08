@@ -7,5 +7,3 @@ ITS Project - 2017
 3. Run the app using ``` heroku ps:scale web=1 --app farmereverywhere ```
 4. After checking please make sure the app is closed by running ``` heroku ps:scale web=0 --app farmereverywhere ```
 5. All the changes made in this repo are automatically reflected in heroku app
-
-Note : Live at 10.0.3.23:8001

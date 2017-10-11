@@ -7,6 +7,14 @@
     <script src={% static "Chart.PieceLabel.min.js" %}></script>
 <link href="https://developers.google.com/fusiontables/docs/samples/style/default.css" rel="stylesheet" type="text/css">
     <style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
       #map {
 
         height: 500px;
@@ -116,16 +124,18 @@ for (var key in icons){
 for(x=0;x<Object.keys(data).length;x++)
 {
 console.log(data[x]);
-var contentInfo="Income: "+(data[x]["Houses"][0].income).toString()+"<br>";
+var contentInfo="HID:"+(x.toString())+"<br>"+"Income: "+(data[x]["Houses"][0].income).toString()+"<br>";
+contentInfo+="<b>Members</b> <ul type='disc'>";
 for(j=0;j<data[x]["Members"].length;j++){
-contentInfo+=data[x]["Members"][j].Name+", "+data[x]["Members"][j].Age+", "+data[x]["Members"][j].Gender+"<br>";
+contentInfo+="<li>"+data[x]["Members"][j].Name+", "+data[x]["Members"][j].Age+", "+data[x]["Members"][j].Gender+"</li>";
 }
+contentInfo+="<ul>"
 for(j=0;j<data[x]["Photos"].length;j++){
 contentInfo+="<img src='http://10.0.3.23:8003"+data[x]["Photos"][j].photo+"' height='200' width='200'>";
 }
-/*for(j=0;j<data[x]["Videos"].length;j++){
+for(j=0;j<data[x]["Videos"].length;j++){
 contentInfo+="<video width='320' height='240' controls> <source src='http://10.0.3.23:8003"+data[x]["Videos"][j].video+"'> </video>";
-}*/
+}
 for(j=0;j<data[x]["Audios"].length;j++){
 contentInfo+="<audio controls> <source src='http://10.0.3.23:8003"+data[x]["Audios"][j].audio+"'> </audio>";
 }
@@ -152,7 +162,7 @@ var temp=[]
   {
 	temp.push(data[x]["Farms"][i].plot.coordinates[0][j].reverse());
   }
-  var contentInfo="<ul type='disc'><li>Area:"+(data[x]['Farms'][i].area).toString()+"</li><li>Crops:<ol type='I'>";
+  var contentInfo="HID:"+(x.toString())+",FID:"+i.toString()+"<br>"+"<ul type='disc'><li>Area:"+(data[x]['Farms'][i].area).toString()+"</li><li>Crops:<ol type='I'>";
   for(j=0;j<data[x]['Farms'][i]['Crops'].length;j++)
   {
 	contentInfo+="<li>Crop name:"+data[x]['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data[x]['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data[x]['Farms'][i]['Crops'][j].Seasons+"</li><li>Area:"+data[x]['Farms'][i]['Crops'][j].Area.toString()+"</li></ul></li>";
@@ -184,10 +194,11 @@ var infowindow = new google.maps.InfoWindow();
 bindInfoWindow(poly, map, infowindow, contentInfo,x,i);
 
 for (j = 0; j < data[x]['Farms'][i]["Wells"].length; j++) {
-var contentInfo='<b>Yield,Date</b><br>'
+var contentInfo="HID:"+(x.toString())+",FID:"+i.toString()+",WID:"+j.toString()+"<br>"+'<table style="border: 1px solid black; "><tr><th>Yield</th><th>Date</th></tr>'
 for(p=0;p<data[x]['Farms'][i]["Wells"][j].Yields.length;p++){
-contentInfo+=data[x]['Farms'][i]["Wells"][j].Yields[p].Yield+", "+data[x]['Farms'][i]["Wells"][j].Yields[p].measured_date+"<br>";
+contentInfo+="<tr><td>"+data[x]['Farms'][i]["Wells"][j].Yields[p].Yield+"</td><td>"+data[x]['Farms'][i]["Wells"][j].Yields[p].measured_date+"</td></tr>";
 }
+contentInfo+="</table>"
 for(p=0;p<data[x]['Farms'][i]["Wells"][j]['Photos'].length;p++){
 contentInfo+="<img src='http://10.0.3.23:8003"+data[x]['Farms'][i]["Wells"][j]['Photos'][p].photo+"' height='200' width='200'>";
 }
@@ -223,6 +234,5 @@ map.addControl({
 });
 
     </script>
-    <audio controls> <source src="http://10.0.3.23:8003/media/uploaded_audio/01-SmellLikeTeenSpirit_2ATy17n.mp3"> </audio>
   </body>
 </html>

@@ -42,8 +42,9 @@ data=JSON.parse('{{ data|safe}}');//[[48.8577262,2.2928475],[48.8576973,2.292387
 for(x=0;x<Object.keys(data).length;x++)
 {
 var contentInfo="Income: "+(data[x]["Houses"][0].income).toString()+"<br>";
+contentInfo+="<b>Members</b> <ul type='disc'>";
 for(j=0;j<data[x]["Members"].length;j++){
-contentInfo+=data[x]["Members"][j].Name+", "+data[x]["Members"][j].Age+", "+data[x]["Members"][j].Gender+"<br>";
+contentInfo+="<li>"+data[x]["Members"][j].Name+", "+data[x]["Members"][j].Age+", "+data[x]["Members"][j].Gender+"</li>";
 }
 for(j=0;j<data[x]["Photos"].length;j++){
 contentInfo+="<img src='http://10.0.3.23:8003"+data[x]["Photos"][j].file+"' height='200' width='200'>";

@@ -121,8 +121,15 @@ for(j=0;j<data[x]["Members"].length;j++){
 contentInfo+=data[x]["Members"][j].Name+", "+data[x]["Members"][j].Age+", "+data[x]["Members"][j].Gender+"<br>";
 }
 for(j=0;j<data[x]["Photos"].length;j++){
-contentInfo+="<img src='http://10.0.3.23:8003"+data[x]["Photos"][j].file+"' height='200' width='200'>";
+contentInfo+="<img src='http://10.0.3.23:8003"+data[x]["Photos"][j].photo+"' height='200' width='200'>";
 }
+/*for(j=0;j<data[x]["Videos"].length;j++){
+contentInfo+="<video width='320' height='240' controls> <source src='http://10.0.3.23:8003"+data[x]["Videos"][j].video+"'> </video>";
+}*/
+for(j=0;j<data[x]["Audios"].length;j++){
+contentInfo+="<audio controls> <source src='http://10.0.3.23:8003"+data[x]["Audios"][j].audio+"'> </audio>";
+}
+
 for (i = 0; i < data[x]["Houses"].length; i++) {
     map.addMarker({
   lat: data[x]["Houses"][i].point.coordinates[1],
@@ -132,23 +139,8 @@ infoWindow: {
 maxwidth:100
   }
 });}
+//vaishnav,I'm going to kill you
 
-
-for (i = 0; i < data[x]["Wells"].length; i++) {
-var contentInfo='<b>Yield,Date</b><br>'
-for(j=0;j<data[x]["Wells"][i].Yields.length;j++){
-contentInfo+=data[x]["Wells"][i].Yields[j].Yield+", "+data[x]["Wells"][i].Yields[j].measured_date+"<br>";
-}
-    map.addMarker({
-  lat: data[x]["Wells"][i].point.coordinates[1],
-  lng: data[x]["Wells"][i].point.coordinates[0],
-
- icon:'http://maps.google.com/mapfiles/ms/micons/water.png',
-infoWindow: {
-    content: contentInfo,
-    maxWidth: 100
-  }
-});}
 //var paths=[[[48.8586341,2.2960675],[48.8586341,2.2960675],[48.8571539,2.2907279],[48.8568504,2.2909585]]]
 var cc = getRandomColour();
 legendcontent+='<div style="border: 1px solid black; background:'+cc+';width:25px;height:25px;display:inline-block;opacity:0.3"></div>Farms '+x.toString()+'<br>';
@@ -165,6 +157,17 @@ var temp=[]
   {
 	contentInfo+="<li>Crop name:"+data[x]['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data[x]['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data[x]['Farms'][i]['Crops'][j].Seasons+"</li><li>Area:"+data[x]['Farms'][i]['Crops'][j].Area.toString()+"</li></ul></li>";
   }
+  for(j=0;j<data[x]['Farms'][i]['Photos'].length;j++)
+  {
+    contentInfo+="<img src='http://10.0.3.23:8003"+data[x]['Farms'][i]['Photos'][j].photo+"' height='200' width='200'>";
+  }
+  for(j=0;j<data[x]['Farms'][i]['Videos'].length;j++){
+  contentInfo+="<video width='320' height='240' controls> <source src='http://10.0.3.23:8003"+data[x]['Farms'][i]['Videos'][j].video+"' > </video>";
+  }
+  for(j=0;j<data[x]['Farms'][i]['Audios'].length;j++){
+  contentInfo+="<audio controls> <source src='http://10.0.3.23:8003"+data[x]['Farms'][i]['Audios'][j].audio+"' type='audio/mpeg'> </audio>";
+  }
+
 
   var poly=map.drawPolygon({
   paths: temp,
@@ -175,8 +178,34 @@ var temp=[]
   fillOpacity: 0.4,
 });
 
+
+
 var infowindow = new google.maps.InfoWindow();
-bindInfoWindow(poly, map, infowindow, contentInfo,x,i);
+bindInfoWindow(poly, map, infowindow, contentInfo);
+
+for (j = 0; j < data[x]['Farms'][i]["Wells"].length; j++) {
+var contentInfo='<b>Yield,Date</b><br>'
+for(p=0;p<data[x]['Farms'][i]["Wells"][j].Yields.length;p++){
+contentInfo+=data[x]['Farms'][i]["Wells"][j].Yields[p].Yield+", "+data[x]['Farms'][i]["Wells"][j].Yields[p].measured_date+"<br>";
+}
+for(p=0;p<data[x]['Farms'][i]["Wells"][j]['Photos'].length;p++){
+contentInfo+="<img src='http://10.0.3.23:8003"+data[x]['Farms'][i]["Wells"][j]['Photos'][p].photo+"' height='200' width='200'>";
+}
+for(p=0;p<data[x]['Farms'][i]["Wells"][j]['Audios'].length;p++){
+contentInfo+="<audio controls> <source src='http://10.0.3.23:8003"+data[x]['Farms'][i]["Wells"][j]['Audios'][p].audio+"' type='audio/mpeg'> </audio>";  }
+for(p=0;p<data[x]['Farms'][i]["Wells"][j]['Videos'].length;p++){
+  contentInfo+="<video width='320' height='240' controls> <source src='http://10.0.3.23:8003"+data[x]['Farms'][i]["Wells"][j]['Videos'][p].video+"'> </video>";
+  }
+    map.addMarker({
+  lat: data[x]['Farms'][i]["Wells"][j].point.coordinates[1],
+  lng: data[x]['Farms'][i]["Wells"][j].point.coordinates[0],
+
+ icon:'http://maps.google.com/mapfiles/ms/micons/water.png',
+infoWindow: {
+    content: contentInfo,
+    maxWidth: 700
+  }
+});}
 }
 
 
@@ -194,5 +223,6 @@ map.addControl({
 });
 
     </script>
+    <audio controls> <source src="http://10.0.3.23:8003/media/uploaded_audio/01-SmellLikeTeenSpirit_2ATy17n.mp3"> </audio>
   </body>
 </html>

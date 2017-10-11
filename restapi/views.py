@@ -64,14 +64,13 @@ def area_all(request):
 	r = True
 	return render(request,'restapi/mapsall.html',{"r":r, "data":data.text})
 def map_3d(request):
-	# data = requests.post('http://10.0.3.23:8003/wells/')	#change housea accordingly
 	r = True
 	data1 = requests.post('http://10.0.3.23:8003/houseall/')
 	return render(request,'restapi/3d.html',{"data1":data1.text,"r":r})
 def map_3d2(request):
 	# data = requests.post('http://10.0.3.23:8003/wells/')	#change housea accordingly
 	# r = True
-	return render(request,'restapi/3d2.html',{});
+	return render(request,'restapi/3d2.html',{})
 def charts(request):
 	r=True
 	return render(request,'restapi/charts.html',{"r":r})

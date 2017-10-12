@@ -37,7 +37,16 @@ th, td {
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="{% static "gmaps.js" %}"></script>
     <script>
+    /********************************************************************************
+      Gets data from server using restapi and stores in variable data in JSON format
+      Houses, Farms, Wells with their attributes.
+
+      ********************************************************************************/
     data=JSON.parse('{{ data|safe}}');
+    /**
+    *    Binds infowindow with content to coressponding map object.
+    * @param {polygon object} ploygon,{map object} map, {infowindow} infowindow, {infowindow content} html, {HID} hid,{FID} fid
+    */
 function bindInfoWindow(poly,map,infowindow, html,hid,fid) {
     poly.addListener('click', function(clickEvent) {
       label_arr=[];
@@ -81,6 +90,10 @@ function bindInfoWindow(poly,map,infowindow, html,hid,fid) {
         infowindow.open(map,this);
     });
 }
+/**
+ * Genreates random colours in hex format
+ * @param -
+ */
 function getRandomColour(){
 	var letters="0123456789ABCDEF";
 	var colour="#";

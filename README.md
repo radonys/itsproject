@@ -27,7 +27,7 @@ First, clone this repository, with link provided [here](https://github.com/radon
   
 2. Installing directly to the system
     
-    - Go to the downloaded repository _itsprojectserver_ and run the following command: <br>
+    - Go to the downloaded repository _itsproject_ and run the following command: <br>
         ```pip3 install -r requirements.txt```. <br><br> It will install all the required dependencies in [requirements.txt](https://github.com/radonys/itsproject/blob/master/requirements.txt).
         
 ## Usage

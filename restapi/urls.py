@@ -1,7 +1,9 @@
 from django.conf.urls import url
 from django.contrib import admin
 from . import views
-
+'''
+	URL links to the respective views and HTML pages
+'''
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^index/', views.index,name="index"),

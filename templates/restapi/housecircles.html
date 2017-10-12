@@ -1,6 +1,10 @@
 <!doctype html>
 <html>
   <head>
+    {% load staticfiles %}
+    <script src={% static "Chart.min.js" %}></script>
+    <script src={% static "Chart.js" %}></script>
+    <script src={% static "Chart.PieceLabel.min.js" %}></script>
 <link href="https://developers.google.com/fusiontables/docs/samples/style/default.css" rel="stylesheet" type="text/css">
     <style>
       #map {
@@ -18,6 +22,7 @@
   </head>
   <body>
     <div id="map" style="width:100%"></div>
+    <canvas id="piechart" style="float:right;width:400px%" ></canvas>
 {% load staticfiles %}
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="{% static "gmaps.js" %}"></script>
@@ -39,13 +44,20 @@ data=JSON.parse('{{ data|safe}}');//[[48.8577262,2.2928475],[48.8576973,2.292387
         lat: data[0]["Houses"][0].point.coordinates[1],
         lng: data[0]["Houses"][0].point.coordinates[0]
       });
+data_arr=[]
+bg_arr=[]
+label_arr=[]
 for(x=0;x<Object.keys(data).length;x++)
 {
+  var dict = {};
+  dict["x"]=x;
+  label_arr.push(x.toString());
 var contentInfo="Income: "+(data[x]["Houses"][0].income).toString()+"<br>";
 contentInfo+="<b>Members</b> <ul type='disc'>";
 for(j=0;j<data[x]["Members"].length;j++){
 contentInfo+="<li>"+data[x]["Members"][j].Name+", "+data[x]["Members"][j].Age+", "+data[x]["Members"][j].Gender+"</li>";
 }
+dict["r"]=data[x]["Members"].length*10;
 for(j=0;j<data[x]["Photos"].length;j++){
 contentInfo+="<img src='http://10.0.3.23:8003"+data[x]["Photos"][j].file+"' height='200' width='200'>";
 }
@@ -58,6 +70,8 @@ for (i = 0; i < data[x]["Houses"].length; i++) {
 	});
 	eh=data[x]["Members"].length;
 	col=getColor(data[x]["Houses"][i].income);
+  dict["y"]=data[x]["Houses"][i].income;
+  bg_arr.push(col);
     var circle=map.drawCircle({
   lat: data[x]["Houses"][i].point.coordinates[1],
   lng: data[x]["Houses"][i].point.coordinates[0],
@@ -71,11 +85,34 @@ bindInfoWindow(circle, map, infowindow, contentInfo);
 console.log(eh);
 console.log(col);
 }
-
+data_arr.push(dict);
 
 console.log(map);
 }
-legendcontent='Houses classified by income<br><div style="border: 1px solid black; background:#ffff00;width:25px;height:25px;display:inline-block;opacity:0.3"></div>0-1000<br><div style="border: 1px solid black; background:#ffccd5;width:25px;height:25px;display:inline-block;opacity:0.3"></div>1000-2000<br><div style="border: 1px solid black; background:#ff8095;width:25px;height:25px;display:inline-block;opacity:0.3"></div>2000-3000<br><div style="border: 1px solid black; background:#ff002b;width:25px;height:25px;display:inline-block;opacity:0.3"></div>3000-4000<br><div style="border: 1px solid black; background:#800015;width:25px;height:25px;display:inline-block;opacity:0.3"></div>4000-5000<br><div style="border: 1px solid black; background:#000000;width:25px;height:25px;display:inline-block;opacity:0.3"></div>>5000<br>';
+var x=new Chart(document.getElementById("piechart"), {
+type: 'bubble',
+data: {
+  datasets: [{
+    data: data_arr,
+    backgroundColor: bg_arr,
+  }],
+
+},
+options:{
+
+  title: {
+    display: true,
+     padding: 100,
+    text: 'Family size vs Income'
+  },
+  legend:{display:false,}
+}
+
+});
+console.log(label_arr);
+console.log(bg_arr);
+
+legendcontent='Houses classified by income<br><div style="border: 1px solid black; background:#ffff00;width:25px;height:25px;display:inline-block;opacity:0.3"></div>0-1000<br><div style="border: 1px solid black; background:#ffccd5;width:25px;height:25px;display:inline-block;opacity:0.3"></div>1000-2000<br><div style="border: 1px solid black; background:#ff8095;width:25px;height:25px;display:inline-block;opacity:0.3"></div>2000-3000<br><div style="border: 1px solid black; background:#ff002b;width:25px;height:25px;display:inline-block;opacity:0.3"></div>3000-4000<br><div style="border: 1px solid black; background:#800015;width:25px;height:25px;display:inline-block;opacity:0.3"></div>4000-5000<br><div style="border: 1px solid black; background:#000001;width:25px;height:25px;display:inline-block;opacity:0.3"></div>>5000<br>';
 map.addControl({
   position: 'top_right',
   content: legendcontent,

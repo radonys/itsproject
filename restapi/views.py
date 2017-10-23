@@ -1,7 +1,25 @@
 from django.shortcuts import render
 import requests
 import json
-# Create your views here.
+'''
+		Final views shown on website
+1.Index
+	Renders the request to the mainpage(index.html)
+2.map3d
+	Gets data from server and renders it on 3d map.
+3.charts
+	Displays bar graphs on index page
+4.notpiechart
+	Displays doughnut chart on poultry page
+5.circles
+	Gets the data of houses from server and renders it on 2d map
+6.cropsug
+	Displays crop suggestions on website
+7.polman
+	Renders poultry managemenet page
+8.properties_m
+	Renders the 3d map and the 2 2d maps.
+'''
 def index(request):
 	return render(request,"restapi/index.html")
 def funchid(request):

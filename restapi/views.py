@@ -86,4 +86,6 @@ def cropsug(request):
 def polman(request):
 	return render(request,'restapi/poultry_manage.html',{})
 def properties_m(request):
-	return render(request,'restapi/properties.html',{})
+	r = True
+	data1 = requests.post('http://10.0.3.23:8003/houseall/')
+	return render(request,'restapi/properties.html',{"data1":data1.text})

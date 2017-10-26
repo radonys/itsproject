@@ -137,7 +137,7 @@ for (var key in icons){
 for(x=0;x<Object.keys(data).length;x++)
 {
 console.log(data[x]);
-var contentInfo="HID:"+(x.toString())+"<br>"+"Income: "+(data[x]["Houses"][0].income).toString()+"<br>";
+var contentInfo="HID:"+(data[x]["Houses"][0]["HID"])+"<br>"+"Income: "+(data[x]["Houses"][0].income).toString()+"<br>";
 contentInfo+="<b>Members</b> <ul type='disc'>";
 for(j=0;j<data[x]["Members"].length;j++){
 contentInfo+="<li>"+data[x]["Members"][j].Name+", "+data[x]["Members"][j].Age+", "+data[x]["Members"][j].Gender+"</li>";
@@ -175,7 +175,7 @@ var temp=[]
   {
 	temp.push(data[x]["Farms"][i].plot.coordinates[0][j].reverse());
   }
-  var contentInfo="HID:"+(x.toString())+",FID:"+i.toString()+"<br>"+"<ul type='disc'><li>Area:"+(data[x]['Farms'][i].area).toString()+"</li><li>Crops:<ol type='I'>";
+  var contentInfo="HID:"+(data[x]['Farms'][i]['HID'])+",FID:"+data[x]['Farms'][i]['FID'].toString()+"<br>"+"<ul type='disc'><li>Area:"+(data[x]['Farms'][i].area).toString()+"</li><li>Crops:<ol type='I'>";
   for(j=0;j<data[x]['Farms'][i]['Crops'].length;j++)
   {
 	contentInfo+="<li>Crop name:"+data[x]['Farms'][i]['Crops'][j].Name+"<br><ul type='circle'><li>Year:"+(data[x]['Farms'][i]['Crops'][j].Year).toString()+"</li><li>Season:"+data[x]['Farms'][i]['Crops'][j].Seasons+"</li><li>Area:"+data[x]['Farms'][i]['Crops'][j].Area.toString()+"</li></ul></li>";
@@ -207,7 +207,7 @@ var infowindow = new google.maps.InfoWindow();
 bindInfoWindow(poly, map, infowindow, contentInfo,x,i);
 
 for (j = 0; j < data[x]['Farms'][i]["Wells"].length; j++) {
-var contentInfo="HID:"+(x.toString())+",FID:"+i.toString()+",WID:"+j.toString()+"<br>"+'<table style="border: 1px solid black; "><tr><th>Yield</th><th>Date</th></tr>'
+var contentInfo="HID:"+(data[x]['Farms'][i]["HID"])+",FID:"+data[x]['Farms'][i]["FID"]+",WID:"+data[x]['Farms'][i]["Wells"][j]["WID"]+"<br>"+'<table style="border: 1px solid black; "><tr><th>Yield</th><th>Date</th></tr>'
 for(p=0;p<data[x]['Farms'][i]["Wells"][j].Yields.length;p++){
 contentInfo+="<tr><td>"+data[x]['Farms'][i]["Wells"][j].Yields[p].Yield+"</td><td>"+data[x]['Farms'][i]["Wells"][j].Yields[p].measured_date+"</td></tr>";
 }

@@ -175,8 +175,8 @@
     <script src="{% static 'farmereverywhere/js/jquery.isotope.min.js' %}"></script>
 	<script src="{% static 'farmereverywhere/js/wow.min.js' %}"</script>
 	<script src="{% static 'farmereverywhere/js/functions.js' %}"></script>
-  <script src={% static "Chart.min.js" %}></script>
-  <script src={% static "Chart.js" %}></script>
+  <script src='{% static "Chart.min.js" %}'></script>
+  <script src='{% static "Chart.js" %}'></script>
 
   <script>
   function fetchnews(){
@@ -184,11 +184,11 @@
     .then(function(response){return response.json()})
     .then(function(data){
         console.log("the data is :",data)
-        var str = "<tr><th  style='position: sticky;'><center>News</center></th></tr>";
+        var str = "";
         var dat = data;
         for(var i =0;i<dat.length;i++)
         {
-          str+="<tr><th><div class='row'><div class='col-md-4'><img src='"+dat[i].img+"' style='width:75%;height:75%'></img></div><div class='col-md-8'><a href='"+dat[i].link+"' target='_blank' style='text-align:right;'>"+dat[i].title+"</a></div></div></th></tr>";
+          str+="<tr><th><div class='row'><div class='col-md-4'><img src='"+dat[i].img+"' style='width:85%;height:85%'></img></div><div class='col-md-8'><a href='"+dat[i].link+"' target='_blank' style='text-align:right;'>"+dat[i].title+"</a></div></div></th></tr>";
         }
         document.getElementById("news").innerHTML = str;
     });

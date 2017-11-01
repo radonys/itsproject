@@ -184,9 +184,9 @@
     fetch("{% url 'news' %}")
     .then(function(response){return response.json()})
     .then(function(data){
-        console.log("the data is :",data.json())
+        console.log("the data is :",data)
         var str = "";
-        var dat = data.json();
+        var dat = data;
         for(var i =0;i<dat.length;i++)
         {
           str+="<tr><div class='row'><a href='"+dat[i].link+"'>"+dat[i].title+"</a></div><div class='row'>"+dat[i].date+"</div><div class='row'>"+dat[i].description+"</div></tr>";

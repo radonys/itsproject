@@ -54,8 +54,8 @@
         </form>
     <div id="map"></div>
 {% load staticfiles %}
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgcJqiV-Kbdio2bMKukIXk7Dkh6F0S0C8"></script>
-    
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyA1obhv4hzrtrdcImXA-OZ0XvCmcDqVzvc"></script>
+
     <script src="{% static "gmaps.js" %}"></script>
     <script>
 function bindInfoWindow(poly,map,infowindow, html) {
@@ -64,7 +64,7 @@ function bindInfoWindow(poly,map,infowindow, html) {
       infowindow.setContent(html);
         infowindow.open(map,this);
     });
-} 
+}
 function getRandomColour(){
 	var letters="0123456789ABCDEF";
 	var colour="#";
@@ -155,7 +155,7 @@ infoWindow: {
 for(i=0;i<data["Farms"].length;i++){
 //console.log(data["Farms"].length);
 //console.log(i);
-var temp=[]  
+var temp=[]
   for(j=0;j<data["Farms"][i].plot.coordinates[0].length;j++)
   {
 	temp.push(data["Farms"][i].plot.coordinates[0][j].reverse());
@@ -178,12 +178,12 @@ var temp=[]
   strokeWeight: 2,
   fillColor: cc,
   fillOpacity: 0.4,
- 
+
 });
 var infowindow = new google.maps.InfoWindow();
-bindInfoWindow(poly, map, infowindow, contentInfo); 
+bindInfoWindow(poly, map, infowindow, contentInfo);
 //console.log(i);
-} 
+}
     </script>
   </body>
 </html>

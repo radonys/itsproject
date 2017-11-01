@@ -79,10 +79,9 @@
 			<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
 					<div class="row">
 						<div class="col-md-12">
+              <center><h3>News</h3></center>
 							<table class="table table-bordered" id="news" style="overflow-y:scroll;height:300px;display:block;">
-								<tr>
-									<th><center>News</center></th>
-								</tr>
+
 								<tr>
 									<td rowspan="8">Nam tempor velit sed turpis imperdiet vestibulum. In mattis leo ut sapien euismod id feugiat mauris euismod. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus id nulla risus, vel tincidunt turpis. Aliquam a nulla mi, placerat blandit eros. In neque lectus, lobortis a varius a, hendrerit eget dolor. Fusce scelerisque, sem ut viverra sollicitudin, est turpis blandit lacus, in pretium lectus sapien at est. Integer pretium ipsum sit amet dui feugiat vitae dapibus odio eleifend. As a describer of life and manners, he must be allowed to stand perhaps the first of the first rank. His humour, which, as Steele observes, is peculiar to himself, is so happily diffused as to give the grace of novelty to domestic scenes and daily occurrences. He never "o'ersteps the modesty of nature," nor raises merriment or wonder by the violation of truth. His figures neither divert by distortion nor amaze by aggravation. He copies life with so much fidelity that he can be hardly said to invent; yet his exhibitions have an air so much original, that it is difficult to suppose them not merely the product of imagination.</td>
 								</tr>
@@ -189,12 +188,12 @@
         var dat = data;
         for(var i =0;i<dat.length;i++)
         {
-          str+="<tr><th><div class='row'><div class='col-md-4'><img src='"+dat[i].img+"' style='width:50%;height:50%'></img></div><div class='col-md-8'><a href='"+dat[i].link+"' target='_blank' style='text-align:right;'>"+dat[i].title+"</a></div></div></th></tr>";
+          str+="<tr><th><div class='row'><div class='col-md-4'><img src='"+dat[i].img+"' style='width:75%;height:75%'></img></div><div class='col-md-8'><a href='"+dat[i].link+"' target='_blank' style='text-align:right;'>"+dat[i].title+"</a></div></div></th></tr>";
         }
         document.getElementById("news").innerHTML = str;
     });
   }
-  window.setInterval(fetchnews,1000);
+  window.setInterval(fetchnews,10000);
   function getRandomColor() {
   var letters = '0123456789ABCDEF'.split('');
   var color = '#';

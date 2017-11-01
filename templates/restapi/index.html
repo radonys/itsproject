@@ -38,9 +38,16 @@
                 <li role="presentation"><a href="{% url 'cropsug'%}">Crop Suggestions</a></li>
                 <li role="presentation"><a href="{% url 'poultry'%}">Poultry Management</a></li>
                 <li role="presentation"><a href="#">Crop Details</a></li>
-                <li role="presentation"><a  href="{% url 'property'%}">Properties</a></li>
-                <li role="presentation"><a href="#">Translate</a></li>
-                <li role="presentation"><a href="#">Login</a></li>
+								<li role="presentation"><a  href="{% url 'property'%}">Properties</a></li>
+								<li role="presentation"><a href="#">Login</a></li>
+                <li role="presentation"><div id="google_translate_element" style="padding-top: 0.31cm;"></div></li>
+                <script type="text/javascript">
+                  var ret="";
+									function googleTranslateElementInit() { ret =
+									new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+									}
+								</script>
+								<script type="text/javascript" src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 							</ul>
 						</div>
 					</div>
@@ -72,7 +79,7 @@
 	<div class="aboutus">
 		<div class="container">
 			<div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-				<h4>GRAPHS</h4>
+				<center><h3>Graphs</h3></center>
         <canvas id="radar-chart" width="800" height="450"></canvas>
 			</div>
 
@@ -100,16 +107,16 @@
 									<th>Helpful Sites</th>
 								</tr></thead>
 								<tr>
-									<td>Site 1</td>
+									<td><a href = "http://www.icar.org.in">Indian Council of Agricultural Research (ICAR)</a></td>
 								</tr>
 								<tr>
-									<td>Site 2</td>
+									<td><a href = "http://www.fertindia.com">Fertilizer Association of India</a></td>
 								</tr>
 								<tr>
-									<td>Site 3</td>
+									<td><a href = "http://www.iffco.coop">Indian Farmers Fertilizers Cooperative Ltd (IFFCO)	</a></td>
 								</tr>
 								<tr>
-									<td>Site 4</td>
+									<td><a href = "http://www.envfor.nic.in">Ministry of Environment and Forests</a></td>
 								</tr>
 							</table>
 						</div>

@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import requests
 import json
+from xml.etree import ElementTree as et
+from django.http import JsonResponse
 '''
 		Final views shown on website
 1.Index
@@ -107,3 +109,15 @@ def properties_m(request):
 	r = True
 	data1 = requests.post('http://10.0.3.23:8003/houseall/')
 	return render(request,'restapi/properties.html',{"data1":data1.text})
+def news(request):
+	xmldata = requests.get("https://economictimes.indiatimes.com/news/economy/agriculture/rssfeeds/1202099874.cms").text
+	tree = et.fromstring(xmldata).find("channel").findall("item")
+	newsarts = []
+	for i in tree:
+		temp_data = {}
+		temp_data["title"] = i.find("title").text
+		temp_data["link"] = i.find("link").text
+		temp_data["description"] = i.find("description").text
+		temp_data["date"] = i.find("pubDate").text
+		newsarts.append(temp_data)
+	return JsonResponse(newsarts,status=200,safe=False)

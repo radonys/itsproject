@@ -1,8 +1,37 @@
 <html>
-<script>data={{data|safe}}
-document.write(data)
-for(i=0;i<length(data);i++)
-{
-  <img src="{% static "gmaps.js" %}"><
-}
-</script><body></body></html>
+  {%load static %}
+    <head>
+    <style>
+    div.gallery {
+        margin: 5px;
+        border: 1px solid #ccc;
+        width: 200px;
+        height: 200px;
+        float:left;
+    }
+    
+    div.gallery:hover {
+        border: 1px solid #777;
+    }
+    
+    div.gallery img {
+        width: 100%;
+    }
+    
+    div.desc {
+        padding: 10px;
+        text-align: center;
+    }
+    </style>
+    </head>
+    <body>
+      {%for i in data%}
+      <div class="gallery">
+        <a href="{% static 'farmereverywhere/crops/'%}{{i.1}}">
+          <img src="{% static 'farmereverywhere/CropImages/'%}{{i.2}}" alt="{{i.0}}" width="150px" height="150px">
+        </a>
+        <div class="desc">{{i.0}}</div>
+      </div>
+    {%endfor%}
+    </body>
+    </html> 

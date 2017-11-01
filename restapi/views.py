@@ -22,13 +22,14 @@ from django.http import JsonResponse
 8.properties_m
 	Renders the 3d map and the 2 2d maps.
 '''
+SERVER_URL = "https://farmereverywhere-server.herokuapp.com"
 def index(request):
 	return render(request,"restapi/index.html")
 def funchid(request):
 	r=False
 	if request.POST:
 		h=request.POST['HID']
-		data = requests.post('http://10.0.3.23:8003/households/',data={"HID":h})
+		data = requests.post(SERVER_URL+'/households/',data={"HID":h})
 		r = True
 		return render(request,'restapi/households.html',{ "r": r ,"data":data.text,"h":h })
 	else:
@@ -37,7 +38,7 @@ def members(request):
 	r=False
 	if request.POST:
 		h=request.POST['HID']
-		data = requests.post('http://10.0.3.23:8003/members/',data={"HID":h})
+		data = requests.post(SERVER_URL+'/members/',data={"HID":h})
 		r = True
 		return render(request,'restapi/members.html',{ "r": r ,"data":data.text,"h":h })
 	else:
@@ -46,7 +47,7 @@ def farms(request):
 	r=False
 	if request.POST:
 		h=request.POST['HID']
-		data = requests.post('http://10.0.3.23:8003/farms/',data={"HID":h})
+		data = requests.post(SERVER_URL+'/farms/',data={"HID":h})
 		r = True
 		return render(request,'restapi/farms.html',{ "r": r ,"data":data.text,"h":h })
 	else:
@@ -55,7 +56,7 @@ def photos(request):
 	r=False
 	if request.POST:
 		h=request.POST['HID']
-		data = requests.post('http://10.0.3.23:8003/photos/',data={"HID":h})
+		data = requests.post(SERVER_URL+'/photos/',data={"HID":h})
 		r = True
 		return render(request,'restapi/photos.html',{ "r": r ,"data":data.text,"h":h })
 	else:
@@ -64,7 +65,7 @@ def crops(request):
 	r=False
 	if request.POST:
 		h=request.POST['HID']
-		data = requests.post('http://10.0.3.23:8003/crops/',data={"HID":h})
+		data = requests.post(SERVER_URL+'/crops/',data={"HID":h})
 		r = True
 		return render(request,'restapi/crops.html',{ "r": r ,"data":data.text,"h":h })
 	else:
@@ -74,21 +75,21 @@ def area_data(request):
 	r=False
 	if request.POST:
 		h=request.POST['ID'] #change to appropriate ID
-		data = requests.post('http://10.0.3.23:8003/housedat/'+str(h)+'/')
+		data = requests.post(SERVER_URL+'/housedat/'+str(h)+'/')
 		r = True
 		return render(request,'restapi/maps.html',{"r": r, "data":data.text})
 	else:
 		return render(request,'restapi/maps.html',{ "r": r})
 def area_all(request):
-	data = requests.post('http://10.0.3.23:8003/houseall/')	#change housea accordingly
+	data = requests.post(SERVER_URL+'/houseall/')	#change housea accordingly
 	r = True
 	return render(request,'restapi/mapsall.html',{"r":r, "data":data.text})
 def map_3d(request):
 	r = True
-	data1 = requests.post('http://10.0.3.23:8003/houseall/')
+	data1 = requests.post(SERVER_URL+'/houseall/')
 	return render(request,'restapi/3d.html',{"data1":data1.text,"r":r})
 def map_3d2(request):
-	# data = requests.post('http://10.0.3.23:8003/wells/')	#change housea accordingly
+	# data = requests.post(SERVER_URL+'/wells/')	#change housea accordingly
 	# r = True
 	return render(request,'restapi/3d2.html',{})
 def charts(request):
@@ -98,7 +99,7 @@ def notpiechart(request):
 	r=True
 	return render(request,'restapi/notpiechart.html',{"r":r})
 def circles(request):
-	data = requests.post('http://10.0.3.23:8003/houseall/')	#change housea accordingly
+	data = requests.post(SERVER_URL+'/houseall/')	#change housea accordingly
 	r = True
 	return render(request,'restapi/housecircles.html',{"r":r, "data":data.text})
 def cropsug(request):
@@ -107,7 +108,7 @@ def polman(request):
 	return render(request,'restapi/poultry_manage.html',{})
 def properties_m(request):
 	r = True
-	data1 = requests.post('http://10.0.3.23:8003/houseall/')
+	data1 = requests.post(SERVER_URL+'/houseall/')
 	return render(request,'restapi/properties.html',{"data1":data1.text})
 def news(request):
 	xmldata = requests.get("https://economictimes.indiatimes.com/news/economy/agriculture/rssfeeds/1202099874.cms").text

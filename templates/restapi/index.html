@@ -79,7 +79,7 @@
 			<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
 					<div class="row">
 						<div class="col-md-12">
-							<table class="table table-bordered">
+							<table class="table table-bordered" id="news">
 								<tr>
 									<th><center>News</center></th>
 								</tr>
@@ -180,6 +180,19 @@
   <script src={% static "Chart.js" %}></script>
 
   <script>
+  function fetchnews(){
+    $.get("{% url 'news' %}",function(data){
+      console.log("the data is :",data)
+      var str = "";
+      var dat = JSON.parse(data);
+      for(var i =0;i<dat.length;i++)
+      {
+        str+="<tr><div class='row'><a href='"+dat[i].link+"'>"+dat[i].title+"</a></div><div class='row'>"+dat[i].date+"</div><div class='row'>"+dat[i].description+"</div></tr>";
+      }
+      $("#news").html(str);
+    });
+  }
+  window.setInterval(fetchnews,1000);
   function getRandomColor() {
   var letters = '0123456789ABCDEF'.split('');
   var color = '#';

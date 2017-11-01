@@ -185,11 +185,11 @@
     .then(function(response){return response.json()})
     .then(function(data){
         console.log("the data is :",data)
-        var str = "<tr style='position:fixed;'><th><center>News</center></th></tr>";
+        var str = "<tr><th  style='position:fixed;'><center>News</center></th></tr>";
         var dat = data;
         for(var i =0;i<dat.length;i++)
         {
-          str+="<tr><th><div class='row'><div class='col-md-4'><img src='"+dat[i].img+"'style='width:25%;height:25%;text-align:left;'></img></div><div class='col-md-8'><a href='"+dat[i].link+"' target='_blank' style='text-align:right;'>"+dat[i].title+"</a></div></div></th></tr>";
+          str+="<tr><th><div class='row'><div class='col-md-4'><img src='"+dat[i].img+"'></img></div><div class='col-md-8'><a href='"+dat[i].link+"' target='_blank' style='text-align:right;'>"+dat[i].title+"</a></div></div></th></tr>";
         }
         document.getElementById("news").innerHTML = str;
     });

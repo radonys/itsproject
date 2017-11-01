@@ -2,6 +2,12 @@
   {%load static %}
     <head>
     <style>
+    .goog-te-banner-frame.skiptranslate {
+      display: none !important;
+      }
+  body {
+      top: 0px !important;
+      }
     div.gallery {
         margin: 5px;
         border: 1px solid #ccc;
@@ -9,15 +15,15 @@
         height: 200px;
         float:left;
     }
-    
+
     div.gallery:hover {
         border: 1px solid #777;
     }
-    
+
     div.gallery img {
         width: 100%;
     }
-    
+
     div.desc {
         padding: 10px;
         text-align: center;
@@ -34,4 +40,4 @@
       </div>
     {%endfor%}
     </body>
-    </html> 
+    </html>

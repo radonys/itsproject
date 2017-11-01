@@ -19,6 +19,12 @@
     <style>
             #e2{position:absolute;right:120;}
             #e1{position:absolute;left:120;}
+            .goog-te-banner-frame.skiptranslate {
+              display: none !important;
+              }
+          body {
+              top: 0px !important;
+              }
     </style>
   </head>
 
@@ -67,7 +73,7 @@
 	<div id="breadcrumb">
 		<div class="container">
 			<div class="breadcrumb">
-				<li><a href="index.html">Home</a></li>
+				<li><a href="{%url 'index'%}">Home</a></li>
 				<li>Poultry Management</li>
 			</div>
 		</div>

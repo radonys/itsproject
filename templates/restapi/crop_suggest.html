@@ -12,6 +12,14 @@
 	<link rel="stylesheet" href="{% static 'farmereverywhere/css/animate.css' %}">
 	<link href="{% static 'farmereverywhere/css/prettyPhoto.css' %}" rel="stylesheet">
 	<link href="{% static 'farmereverywhere/css/style.css' %}" rel="stylesheet" />
+  <style>
+  .goog-te-banner-frame.skiptranslate {
+    display: none !important;
+    }
+body {
+    top: 0px !important;
+    }
+  </style>
   </head>
   <body>
 	<header>
@@ -225,6 +233,8 @@
       var lim = 4;
       for(j in data[k])
       {
+        if(j=="date")
+        continue;
         if(lim<=0)
           break;
         content+="<tr><td>"+j+"</td><td>"+data[k][j].max_price+"</td><td>"+data[k][j].min_price+"</td><td>"+data[k][j].modal_price+"</td></tr>";

@@ -120,5 +120,6 @@ def news(request):
 		temp_data["link"] = i.find("link").text
 		temp_data["description"] = i.find("description").text
 		temp_data["date"] = i.find("pubDate").text
+		temp_data["img"] = i.find("image").text
 		newsarts.append(temp_data)
 	return JsonResponse(newsarts,status=200,safe=False)

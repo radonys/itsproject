@@ -79,7 +79,7 @@
 			<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
 					<div class="row">
 						<div class="col-md-12">
-							<table class="table table-bordered" id="news" style="overflow:scroll;">
+							<table class="table table-bordered" id="news" style="overflow:scroll; height:300px;">
 								<tr>
 									<th><center>News</center></th>
 								</tr>
@@ -189,7 +189,7 @@
         var dat = data;
         for(var i =0;i<dat.length;i++)
         {
-          str+="<tr><th><img src='"+dat[i].img+"'style='text-align:left;'></img><a href='"+dat[i].link+"' target='_blank' style='text-align:right;'>"+dat[i].title+"</a></th></tr>";
+          str+="<tr><th><img src='"+dat[i].img+"'style='width:25%;height:25%;text-align:left;'></img><a href='"+dat[i].link+"' target='_blank' style='text-align:right;'>"+dat[i].title+"</a></th></tr>";
         }
         document.getElementById("news").innerHTML = str;
     });

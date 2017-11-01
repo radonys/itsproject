@@ -83,7 +83,7 @@ body {
 					<div class="row">
 						<div class="col-md-6 wow fadeInDown">
 							<div class="table-responsive">
-								<table class="table">
+								<table class="table" id="table1">
 									<thead><tr>
 										<th>Crop</th>
 										<th>Price</th>
@@ -110,7 +110,7 @@ body {
 
 						<div class="col-md-6 wow fadeInDown">
 							<div class="table-responsive">
-								<table class="table">
+								<table class="table" id="table2">
 									<thead><tr>
 										<th>Crop</th>
 										<th>Price</th>
@@ -226,6 +226,7 @@ body {
   $.when.apply(null, req).done( function(){
     // all done
     // console.log(dataresp);
+    var crop_price={}
     for(var i=0;i<dataresp.length;i++)
     {
       var k = Object.keys(data)[i];
@@ -240,6 +241,17 @@ body {
         content+="<tr><td>"+j+"</td><td>"+data[k][j].max_price+"</td><td>"+data[k][j].min_price+"</td><td>"+data[k][j].modal_price+"</td></tr>";
         lim--;
       }
+      for(j in data[k])
+      {
+        if(j=="date")
+        continue;
+        if(Object.keys(crop_price).indexOf("j")==-1)
+          crop_price[j]={count:1,data:data[k][j].modal_price}
+        else {
+          crop_price[j].data+=data[k][j].modal_price;
+          crop_price[j].count++;
+        }
+      }
       content+="</table>"
     bounds.extend(new google.maps.LatLng(dataresp[i].results[0].geometry.location.lat,dataresp[i].results[0].geometry.location.lng));
       map.addMarker({
@@ -252,6 +264,23 @@ body {
       });
 
     }
+    var lim=8;
+    var t1 = "<thead><tr><th>Crop</th><th>Avg Price</th></tr></thead>";
+    var t2 = "<thead><tr><th>Crop</th><th>Avg Price</th></tr></thead>"
+    for(keys in crop_price)
+    {
+      if(lim<=0)
+      break;
+      else if(lim<=4){
+        t2+="<tr><td>"+keys+"</td><td>"+crop_price[keys].data/crop_price[keys].count+"</td></tr>";
+      }
+      else{
+        t1+="<tr><td>"+keys+"</td><td>"+crop_price[keys].data/crop_price[keys].count+"</td></tr>";
+      }
+      lim--;
+    }
+    document.getElementById("table1").innerHTML=t1;
+    document.getElementById("table2").innerHTML=t2;
     map.fitBounds(bounds);
 });
   </script>

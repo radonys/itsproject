@@ -60,8 +60,7 @@
 	<div class="aboutus">
 		<div class="container">
 			<div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-				<img src="{% static 'farmereverywhere/images/7.jpg' %}" class="img-responsive">
-				<h4>MAP</h4>
+				<div id="map" style="width:100%;height:1000px;float:left"></div>
 			</div>
 
 			<div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
@@ -121,25 +120,8 @@
 							</div>
 						</div>
 					</div>
-
-					<div class="row">
-						<div class="col-md-6">
-							<div class="col-md-12">
-								<table class="table table-bordered">
-									<tr>
-										<th><center>News</center></th>
-									</tr>
-									<tr>
-										<td rowspan="8">Nam tempor velit sed turpis imperdiet vestibulum. In mattis leo ut sapien euismod id feugiat mauris euismod. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus id nulla risus, vel tincidunt turpis. Aliquam a nulla mi, placerat blandit eros. In neque lectus, lobortis a varius a, hendrerit eget dolor. Fusce scelerisque, sem ut viverra sollicitudin, est turpis blandit lacus, in pretium lectus sapien at est. Integer pretium ipsum sit amet dui feugiat vitae dapibus odio eleifend.</td>
-									</tr>
-									<tr>
-									</tr>
-								</table>
-							</div>
-						</div>
-
 						<div class="col-md-6 wow fadeInDown">
-							
+
 						</div>
 					</div>
 				</div>
@@ -184,6 +166,77 @@
     <script src="{% static 'farmereverywhere/js/jquery.isotope.min.js' %}"></script>
 	<script src="{% static 'farmereverywhere/js/wow.min.js' %}"></script>
 	<script src="{% static 'farmereverywhere/js/functions.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyA1obhv4hzrtrdcImXA-OZ0XvCmcDqVzvc"></script>
+  <script src="{% static "gmaps.js" %}"></script>
+  <script>
+  /********************************************************************************
+    Puts up get request to reverse geolocation and plots it in map
 
+    ********************************************************************************/
+  data=JSON.parse('{{ data|safe}}');
+  function bindInfoWindow(poly,map,infowindow, html,dis) {
+      poly.addListener('click', function(clickEvent) {
+        // label_arr=[];
+        // data_arr=[];
+        // for(new_in=0;new_in<data[hid]['Farms'][fid]['Crops'].length;new_in++)
+        // {
+        //   data_arr.push(data[hid]["Farms"][fid]["Crops"][new_in].Area);
+        //   label_arr.push(data[hid]["Farms"][fid]["Crops"][new_in].Name);
+        // }
+        infowindow.setPosition(clickEvent.latLng);
+          infowindow.setContent(html);
+            infowindow.open(map,this);
+      });
+    }
+  var map = new GMaps({
+    el: '#map',
+    lat: 15.9129,
+    lng: 79.7400
+  });
+  var bounds = new google.maps.LatLngBounds();
+  var req = []
+  var dataresp = []
+  var boundary = []
+  for(var key in data)
+  {
+    console.log(key);
+    req.push(
+      $.get(
+        'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyA1obhv4hzrtrdcImXA-OZ0XvCmcDqVzvc&address='+encodeURI(key+" Andhra Pradesh"),
+      function(resp){
+        dataresp.push(resp);
+      })
+    );
+  }
+  $.when.apply(null, req).done( function(){
+    // all done
+    // console.log(dataresp);
+    for(var i=0;i<dataresp.length;i++)
+    {
+      var k = Object.keys(data)[i];
+      var content="District Name:"+k+"<br>Updated On:"+data[k]["date"]+"<table border=1><tr><th>Crop Name</th><th>Max Price</th><th>Min Price</th><th>Modal Price</th></tr>";
+      var lim = 4;
+      for(j in data[k])
+      {
+        if(lim<=0)
+          break;
+        content+="<tr><td>"+j+"</td><td>"+data[k][j].max_price+"</td><td>"+data[k][j].min_price+"</td><td>"+data[k][j].modal_price+"</td></tr>";
+        lim--;
+      }
+      content+="</table>"
+    bounds.extend(new google.maps.LatLng(dataresp[i].results[0].geometry.location.lat,dataresp[i].results[0].geometry.location.lng));
+      map.addMarker({
+        lat:dataresp[i].results[0].geometry.location.lat,
+        lng:dataresp[i].results[0].geometry.location.lng,
+        infoWindow: {
+            content: content,
+            maxWidth: 700
+          }
+      });
+
+    }
+    map.fitBounds(bounds);
+});
+  </script>
 </body>
 </html>

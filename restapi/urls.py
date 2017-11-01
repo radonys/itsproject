@@ -5,10 +5,10 @@ from . import views
 	URL links to the respective views and HTML pages
 '''
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^index/', views.index,name="index"),
-    url(r'^$', views.index,name="index"),
-    url(r'^crops/', views.crops,name="crops"),
+	url(r'^admin/', admin.site.urls),
+	url(r'^index/', views.index,name="index"),
+	url(r'^$', views.index,name="index"),
+	url(r'^crops/', views.crops,name="crops"),
 	url(r'^households/', views.funchid,name="households"),
 	url(r'^farms/', views.farms,name="farms"),
 	url(r'^photos/', views.photos,name="photos"),
@@ -16,7 +16,7 @@ urlpatterns = [
 	url(r'^crops/', views.crops,name="members"),
 	url(r'^houses/', views.area_data,name="maps"),
 	url(r'^housesall/', views.area_all,name="mapsall"),
-    url(r'^3d/', views.map_3d,name="3d"),
+	url(r'^3d/', views.map_3d,name="3d"),
 	url(r'^housesall/', views.area_all,name="mapsall"),
 	url(r'^charts/', views.charts,name="charts"),
     url(r'^3d2/', views.map_3d2,name="3d2"),

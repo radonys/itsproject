@@ -12,6 +12,14 @@
 	<link rel="stylesheet" href="{% static 'farmereverywhere/css/animate.css' %}">
 	<link href="{% static 'farmereverywhere/css/prettyPhoto.css'% }" rel="stylesheet">
 	<link href="{% static 'farmereverywhere/css/style.css' %}" rel="stylesheet" />
+  <style>
+  .goog-te-banner-frame.skiptranslate {
+    display: none !important;
+    }
+body {
+    top: 0px !important;
+    }
+  </style>
   </head>
 
   <body>
@@ -37,10 +45,17 @@
 								<!--li role="presentation"><a href="#">Dashboard</a></li-->
                 <li role="presentation"><a href="{% url 'cropsug'%}">Crop Suggestions</a></li>
                 <li role="presentation"><a href="{% url 'poultry'%}">Poultry Management</a></li>
-                <li role="presentation"><a href="#">Crop Details</a></li>
-                <li role="presentation"><a  href="{% url 'property'%}">Properties</a></li>
-                <li role="presentation"><a href="#">Translate</a></li>
-                <li role="presentation"><a href="#">Login</a></li>
+                <li role="presentation"><a href="{% url 'cropdet' %}">Crop Details</a></li>
+								<li role="presentation"><a  href="{% url 'property'%}">Properties</a></li>
+								<li role="presentation"><a href="#">Login</a></li>
+                <li role="presentation"><div id="google_translate_element" style="padding-top: 0.31cm;"></div></li>
+                <script type="text/javascript">
+                  var ret="";
+									function googleTranslateElementInit() { ret =
+									new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+									}
+								</script>
+								<script type="text/javascript" src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 							</ul>
 						</div>
 					</div>
@@ -59,7 +74,6 @@
                                 <div class="carousel-content">
                                     <h2 class="animation animated-item-1"><span style="color:black">Welcome to</span><br><span>Farmer Everywhere</span></h2>
                                     <p class="animation animated-item-2" style="color:black">The place where Farmers and Productivity meets.</p>
-                                    <a class="btn-slide animation animated-item-3" href="#">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +86,7 @@
 	<div class="aboutus">
 		<div class="container">
 			<div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-				<h4>GRAPHS</h4>
+				<center><h3>Graphs</h3></center>
         <canvas id="radar-chart" width="800" height="450"></canvas>
 			</div>
 
@@ -80,10 +94,10 @@
 					<div class="row">
 						<div class="col-md-12">
               <center><h3>News</h3></center>
-							<table class="table table-bordered" id="news" style="overflow-y:scroll;height:300px;display:block;">
+							<table class="table table-bordered" id="news" style="overflow-y:scroll;height:500px;display:block;">
 
 								<tr>
-									<td rowspan="8">Nam tempor velit sed turpis imperdiet vestibulum. In mattis leo ut sapien euismod id feugiat mauris euismod. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus id nulla risus, vel tincidunt turpis. Aliquam a nulla mi, placerat blandit eros. In neque lectus, lobortis a varius a, hendrerit eget dolor. Fusce scelerisque, sem ut viverra sollicitudin, est turpis blandit lacus, in pretium lectus sapien at est. Integer pretium ipsum sit amet dui feugiat vitae dapibus odio eleifend. As a describer of life and manners, he must be allowed to stand perhaps the first of the first rank. His humour, which, as Steele observes, is peculiar to himself, is so happily diffused as to give the grace of novelty to domestic scenes and daily occurrences. He never "o'ersteps the modesty of nature," nor raises merriment or wonder by the violation of truth. His figures neither divert by distortion nor amaze by aggravation. He copies life with so much fidelity that he can be hardly said to invent; yet his exhibitions have an air so much original, that it is difficult to suppose them not merely the product of imagination.</td>
+									<td rowspan="8">Loading...</td>
 								</tr>
 								<tr>
 								</tr>
@@ -100,16 +114,16 @@
 									<th>Helpful Sites</th>
 								</tr></thead>
 								<tr>
-									<td>Site 1</td>
+									<td><a href = "http://www.icar.org.in">Indian Council of Agricultural Research (ICAR)</a></td>
 								</tr>
 								<tr>
-									<td>Site 2</td>
+									<td><a href = "http://www.fertindia.com">Fertilizer Association of India</a></td>
 								</tr>
 								<tr>
-									<td>Site 3</td>
+									<td><a href = "http://www.iffco.coop">Indian Farmers Fertilizers Cooperative Ltd (IFFCO)	</a></td>
 								</tr>
 								<tr>
-									<td>Site 4</td>
+									<td><a href = "http://www.envfor.nic.in">Ministry of Environment and Forests</a></td>
 								</tr>
 							</table>
 						</div>

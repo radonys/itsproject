@@ -28,7 +28,12 @@
 			height: 1200px;
 			width: 100%;
 		}
-
+    .goog-te-banner-frame.skiptranslate {
+      display: none !important;
+      }
+    body {
+      top: 0px !important;
+      }
 	</style>
   </head>
   <body>
@@ -51,13 +56,20 @@
 						<div class="navbar-collapse collapse">
 							<div class="menu">
 								<ul class="nav nav-tabs" role="tablist">
-									<!--li role="presentation"><a href="#">Dashboard</a></li-->
-									<li role="presentation"><a href="{% url 'cropsug'%}">Crop Suggestions</a></li>
-									<li role="presentation"><a href="{% url 'poultry'%}">Poultry Management</a></li>
-									<li role="presentation"><a href="#">Crop Details</a></li>
-									<li role="presentation"><a class="active" href="{% url 'property'%}">Properties</a></li>
-									<li role="presentation"><a href="#">Translate</a></li>
-									<li role="presentation"><a href="#">Login</a></li>
+								<!--li role="presentation"><a href="#">Dashboard</a></li-->
+                <li role="presentation"><a href="{% url 'cropsug'%}">Crop Suggestions</a></li>
+                <li role="presentation"><a href="{% url 'poultry'%}">Poultry Management</a></li>
+                <li role="presentation"><a href="{% url 'cropdet' %}">Crop Details</a></li>
+								<li role="presentation"><a  href="{% url 'property'%}">Properties</a></li>
+								<li role="presentation"><a href="#">Login</a></li>
+                <li role="presentation"><div id="google_translate_element" style="padding-top: 0.31cm;"></div></li>
+                <script type="text/javascript">
+                  var ret="";
+									function googleTranslateElementInit() { ret =
+									new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+									}
+								</script>
+								<script type="text/javascript" src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 							</ul>
 						</div>
 					</div>
@@ -69,7 +81,7 @@
 	<div id="breadcrumb">
 		<div class="container">
 			<div class="breadcrumb">
-				<li><a href="index.html">Home</a></li>
+				<li><a href="{% url 'index'%}">Home</a></li>
 				<li>Properties</li>
 			</div>
 		</div>

@@ -104,7 +104,14 @@ def circles(request):
 	r = True
 	return render(request,'restapi/housecircles.html',{"r":r, "data":data.text})
 def cropsug(request):
-	return render(request,'restapi/crop_suggest.html',{})
+	data = json.loads(requests.get("https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?format=json&api-key=579b464db66ec23bdd000001d85c100d2a4a49f760066d1e8bafe8dd&filters[state]=Andhra%20Pradesh&limit=10000").text)
+	ref_data={}
+	for i in data["records"]:
+		if i["district"] not in ref_data:
+			ref_data[i["district"]]={"date":i["arrival_date"]}
+		else:
+			ref_data[i["district"]][i["commodity"]]={"max_price":i["max_price"],"min_price":i["min_price"],"modal_price":i["modal_price"]}
+	return render(request,'restapi/crop_suggest.html',{"data":json.dumps(ref_data)})
 def polman(request):
 	return render(request,'restapi/poultry_manage.html',{})
 def properties_m(request):
@@ -115,10 +122,10 @@ def crop_details(request):
 	links=["indiaagronet/crop info/wheat.htm", 'indiaagronet/crop info/bajra.htm', 'indiaagronet/crop info/maize.htm', 'indiaagronet/Crop_Husbandry/contents/soybean.htm', 'indiaagronet/crop info/green_gram.htm', 'indiaagronet/crop info/Ragi .htm', 'horticulture/CONTENTS/fenugreek.htm', 'horticulture/CONTENTS/black_pepper.htm', 'indiaagronet/crop info/Ocimum.htm', 'indiaagronet/horticulture/CONTENTS/Coriander.htm', 'indiaagronet/horticulture/CONTENTS/Curry Leaf.htm', 'horticulture/CONTENTS/cashew.htm', 'horticulture/CONTENTS/Garlic.htm', 'indiaagronet/crop info/ginger.htm', 'indiaagronet/crop info/bottlegourd.htm', 'indiaagronet/crop info/turmeric.htm', 'horticulture/CONTENTS/Beans.htm', 'indiaagronet/crop info/lemon grass.htm','indiaagronet/crop info/Cardamom.htm', 'horticulture/CONTENTS/Rubber.htm', 'indiaagronet/horticulture/CONTENTS/tea.htm']
 	data=[]
 	for x in links:
-		data.append([x.split('/')[-1].split('.')[0].strip().title(),x.split('/')[-1]])
+		data.append([x.split('/')[-1].split('.')[0].strip().title(),x.split('/')[-1],x.split('/')[-1].replace("htm","jpg")])
 	print(data)
 	json_list = json.dumps(data)
-	return render(request,'restapi/crop_details.html',{"data":json_list})
+	return render(request,'restapi/crop_details.html',{"data":data})
 def news(request):
 	xmldata = requests.get("https://economictimes.indiatimes.com/news/economy/agriculture/rssfeeds/1202099874.cms").text
 	tree = et.fromstring(xmldata).find("channel").findall("item")

@@ -26,4 +26,6 @@ urlpatterns = [
   url(r'^poultry_manage/', views.polman,name="poultry"),
   url(r'^cropsuggest/', views.cropsug,name="cropsug"),
   url(r'^cropdet/', views.crop_details,name="cropdet"),
+  url(r'^news/',views.news,name="news"),
+  url(r'^cropgraph/', views.crop_graphs,name="cropgraph"),
 ]

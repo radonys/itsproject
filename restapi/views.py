@@ -3,6 +3,7 @@ import requests
 import json
 from xml.etree import ElementTree as et
 from django.http import JsonResponse
+import csv
 '''
 		Final views shown on website
 1.Index
@@ -131,3 +132,27 @@ def news(request):
 		temp_data["img"] = i.find("image").text
 		newsarts.append(temp_data)
 	return JsonResponse(newsarts,status=200,safe=False)
+def crop_graphs(request):
+	reader = csv.reader(open('apy.csv'))
+	data=[]
+	k_crops=[]
+	b_crops=[]
+	a_crops=[]
+	for line in reader:
+		data.append([x.strip() for x in line])
+		s=line[3].strip()
+		if(s=='Kharif'):
+			k_crops.append(line[4])
+		elif(s=="Rabi"):
+			b_crops.append(line[4])
+		else:
+			a_crops.append(line[4])
+	a_crops=list(set(a_crops))
+	b_crops=list(set(b_crops))
+	k_crops=list(set(k_crops))
+	print(k_crops)
+
+	print(b_crops)
+	print(a_crops)
+	print(set(b_crops)-set(k_crops))
+	return render(request,'restapi/crop_graph.html',{"data":data,"a_crops":a_crops,"b_crops":b_crops,"k_crops":k_crops})

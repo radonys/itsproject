@@ -1,0 +1,227 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {% load staticfiles %}
+    <script src={% static "Chart.min.js" %}></script>
+    <script src={% static "Chart.js" %}></script>
+  </head>
+  <body>
+    <canvas id="chart" width="800" height="450"></canvas>
+    <select id="drop-season" required>
+  <option value="Kharif">Kharif</option>
+  <option value="Rabi">Rabi</option>
+  <option value="Whole Year">Whole Year</option>
+</select>
+<select id="drop-year">
+</select>
+<select id="drop-crops">
+</select>
+
+
+
+    <script>
+    a_crops={{a_crops|safe}}
+    b_crops={{b_crops|safe}}
+    k_crops={{k_crops|safe}}
+    console.log(b_crops);
+    data={{data|safe}}
+    for (var i = 1997; i<=2016; i++){
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = i;
+        document.getElementById('drop-year').appendChild(opt);
+    }
+    console.log($('#drop-season').val());
+    if($('#drop-season').val()=="Kharif"){
+      console.log("1");
+    for(i=0;i<k_crops.length;i++){
+      var opt = document.createElement('option');
+      opt.value = k_crops[i];
+      opt.innerHTML = k_crops[i];
+      document.getElementById('drop-crops').appendChild(opt);
+    }}
+    else if($('#drop-season').val()=="Rabi"){
+    for(i=0;i<b_crops.length;i++){
+      var opt = document.createElement('option');
+      opt.value = b_crops[i];
+      opt.innerHTML =b_crops[i];
+      document.getElementById('drop-crops').appendChild(opt);
+    }}
+    else
+    {
+      for(i=0;i<a_crops.length;i++){
+        var opt = document.createElement('option');
+        opt.value = a_crops[i];
+        opt.innerHTML = a_crops[i];
+        document.getElementById('drop-crops').appendChild(opt);
+      }
+    }
+    var Year=$('#drop-year').val()
+    var Crop=$('#drop-crops').val()
+    var Season=$('#drop-season').val()
+
+   dataArray=[];
+    label=[];
+    var chart=new Chart(document.getElementById("chart"), {
+    type: 'bar',
+    label:["E"],
+        data: {
+          labels: [],
+    datasets:  [{backgroundColor:[]}
+
+    ]
+    },
+    options: {
+      legend: {
+    display: false,
+},
+      title: {
+        display: true,
+        text: 'Year wise yield of Crops'
+      },
+      scales: {
+        yAxes: [{
+
+          scaleLabel: {
+            display: true,
+            labelString: "Yield( KTon)"
+          }
+
+        }],
+        xAxes: [{
+          categorySpacing: 0,
+          scaleLabel: {
+            display: true,
+            labelString: "Years"
+          }
+        }]
+      }
+    }
+});
+
+    populatedata(Year,Crop,Season);
+
+    $(document).ready(function() {
+       $('#drop-year').change(function() {
+chart.data.labels.pop();
+         chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+
+         chart.update()
+         Year=$('#drop-year').val()
+         Crop=$('#drop-crops').val()
+         Season=$('#drop-season').val()
+         populatedata(Year,Crop,Season);
+
+         console.log(Year);
+         console.log(Crop);
+         console.log(Season);
+
+        });
+        $('#drop-crops').change(function() {
+ chart.data.labels.pop();
+          chart.data.datasets.forEach((dataset) => {
+         dataset.data.pop();
+     });
+          chart.update()
+          Year=$('#drop-year').val()
+          Crop=$('#drop-crops').val()
+          Season=$('#drop-season').val()
+          populatedata(Year,Crop,Season);
+
+          console.log(Year);
+          console.log(Crop);
+          console.log(Season);
+
+         });
+      $('#drop-season').change(function()  {
+        $('#drop-crops').find('option').remove()
+        if($('#drop-season').val()=="Kharif"){
+          console.log("1");
+        for(i=0;i<k_crops.length;i++){
+          var opt = document.createElement('option');
+          opt.value = k_crops[i];
+          opt.innerHTML = k_crops[i];
+          document.getElementById('drop-crops').appendChild(opt);
+        }}
+        else if($('#drop-season').val()=="Rabi"){
+          console.log("2");
+        for(i=0;i<b_crops.length;i++){
+          var opt = document.createElement('option');
+          opt.value = b_crops[i];
+          opt.innerHTML =b_crops[i];
+          document.getElementById('drop-crops').appendChild(opt);
+        }}
+        else
+        {
+          console.log("3");
+          for(i=0;i<a_crops.length;i++){
+            var opt = document.createElement('option');
+            opt.value = a_crops[i];
+            opt.innerHTML = a_crops[i];
+            document.getElementById('drop-crops').appendChild(opt);
+          }
+        }
+        chart.data.labels.pop();
+                 chart.data.datasets.forEach((dataset) => {
+                dataset.data.pop();
+            });
+                 chart.update()
+                 Year=$('#drop-year').val()
+                 Crop=$('#drop-crops').val()
+                 Season=$('#drop-season').val()
+                 populatedata(Year,Crop,Season);
+
+                 console.log(Year);
+                 console.log(Crop);
+                 console.log(Season);});
+    })
+    function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+ function populatedata(Year,Crop,Season){
+   dataArray=[]
+   label=[]
+   console.log(Year);console.log(Crop);console.log(Season);
+   for(i=0;i<data.length;i++){
+     if(data[i][2]==Year && data[i][4]==Crop && data[i][3]==Season)
+     {
+       var dictionary = {};
+       dictionary.label=data[i][1]
+       label.push(data[i][1])
+       dictionary.data=data[i][5];
+       dictionary.backgroundColor=getRandomColor();
+       dataArray.push(dictionary);
+     }
+
+   }
+   j=0;
+   for (var x in dataArray) {
+            console.log(parseInt(dataArray[x]["data"]));
+            chart.data.datasets[0].data.push(parseInt(dataArray[x]["data"]));
+            chart.data.datasets[0].backgroundColor.push(dataArray[x]["backgroundColor"]);
+                        /*chart.data.datasets.push({
+  label: dataArray[x]["label"],
+  backgroundColor: dataArray[x]["backgroundColor"],
+  data: [parseInt(dataArray[x]["data"])],
+})*/
+j=j+1;
+        }
+   chart.data.labels=label;
+   chart.update();
+  console.log(dataArray);
+ }
+
+
+
+
+    </script>
+
+  </body>
+</html>

@@ -107,3 +107,11 @@ def properties_m(request):
 	r = True
 	data1 = requests.post('http://10.0.3.23:8003/houseall/')
 	return render(request,'restapi/properties.html',{"data1":data1.text})
+def crop_details(request):
+	links=["indiaagronet/crop info/wheat.htm", 'indiaagronet/crop info/bajra.htm', 'indiaagronet/crop info/maize.htm', 'indiaagronet/Crop_Husbandry/contents/soybean.htm', 'indiaagronet/crop info/green_gram.htm', 'indiaagronet/crop info/Ragi .htm', 'horticulture/CONTENTS/fenugreek.htm', 'horticulture/CONTENTS/black_pepper.htm', 'indiaagronet/crop info/Ocimum.htm', 'indiaagronet/horticulture/CONTENTS/Coriander.htm', 'indiaagronet/horticulture/CONTENTS/Curry Leaf.htm', 'horticulture/CONTENTS/cashew.htm', 'horticulture/CONTENTS/Garlic.htm', 'indiaagronet/crop info/ginger.htm', 'indiaagronet/crop info/bottlegourd.htm', 'indiaagronet/crop info/turmeric.htm', 'horticulture/CONTENTS/Beans.htm', 'indiaagronet/crop info/lemon grass.htm','indiaagronet/crop info/Cardamom.htm', 'horticulture/CONTENTS/Rubber.htm', 'indiaagronet/horticulture/CONTENTS/tea.htm']
+	data=[]
+	for x in links:
+		data.append([x.split('/')[-1].split('.')[0].strip().title(),x.split('/')[-1]])
+	print(data)
+	json_list = json.dumps(data)
+	return render(request,'restapi/crop_details.html',{"data":json_list})

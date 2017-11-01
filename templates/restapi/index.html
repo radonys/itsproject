@@ -185,16 +185,16 @@
     .then(function(response){return response.json()})
     .then(function(data){
         console.log("the data is :",data)
-        var str = "";
+        var str = "<tr><th><center>News</center></th></tr>";
         var dat = data;
         for(var i =0;i<dat.length;i++)
         {
-          str+="<tr><div class='row'><a href='"+dat[i].link+"'>"+dat[i].title+"</a></div><div class='row'>"+dat[i].date+"</div><div class='row'>"+dat[i].description+"</div></tr>";
+          str+="<tr><th><a href='"+dat[i].link+"' target='_blank'>"+dat[i].title+"</a></th><div class='row'>"+dat[i].date+"</div><div class='row'>"+dat[i].description+"</div></tr>";
         }
         document.getElementById("news").innerHTML = str;
     });
   }
-  window.setInterval(fetchnews,10000);
+  window.setInterval(fetchnews,1000);
   function getRandomColor() {
   var letters = '0123456789ABCDEF'.split('');
   var color = '#';

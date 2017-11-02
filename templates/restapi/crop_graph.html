@@ -25,14 +25,24 @@
     k_crops={{k_crops|safe}}
     console.log(b_crops);
     data={{data|safe}}
-    for (var i = 1997; i<=2016; i++){
+    for (var i = 1998; i<=2016; i++){
         var opt = document.createElement('option');
         opt.value = i;
         opt.innerHTML = i;
         document.getElementById('drop-year').appendChild(opt);
     }
     console.log($('#drop-season').val());
-    if($('#drop-season').val()=="Kharif"){
+    var Year=$('#drop-year').val()
+    var Season=$('#drop-season').val()
+    for(i=0;i<data.length;i++)
+    {
+      if(data[i][2]==Year && data[i][3]==Season){
+     opt = document.createElement('option');
+      opt.value = data[i][4];
+      opt.innerHTML = data[i][4];
+      document.getElementById('drop-crops').appendChild(opt);
+    }}
+    /*if($('#drop-season').val()=="Kharif"){
       console.log("1");
     for(i=0;i<k_crops.length;i++){
       var opt = document.createElement('option');
@@ -55,7 +65,7 @@
         opt.innerHTML = a_crops[i];
         document.getElementById('drop-crops').appendChild(opt);
       }
-    }
+    }*/
     var Year=$('#drop-year').val()
     var Crop=$('#drop-crops').val()
     var Season=$('#drop-season').val()
@@ -77,22 +87,26 @@
 },
       title: {
         display: true,
-        text: 'Year wise yield of Crops'
+        text: 'Production of crops based on Season and Year'
       },
       scales: {
         yAxes: [{
 
           scaleLabel: {
             display: true,
-            labelString: "Yield( KTon)"
-          }
+            labelString: "Yield( Ton)"
+          },
+          ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                },
 
         }],
         xAxes: [{
           categorySpacing: 0,
           scaleLabel: {
             display: true,
-            labelString: "Years"
+            labelString: "Districts"
           }
         }]
       }
@@ -103,12 +117,24 @@
 
     $(document).ready(function() {
        $('#drop-year').change(function() {
-chart.data.labels.pop();
+  chart.data.labels=[]
          chart.data.datasets.forEach((dataset) => {
         dataset.data.pop();
     });
+    chart.update()
+    Year=$('#drop-year').val()
+    Season=$('#drop-season').val()
+    $('#drop-crops').find('option').remove();
+    for(i=0;i<data.length;i++)
+    {
+      if(data[i][2]==Year && data[i][3]==Season){
+     opt = document.createElement('option');
+      opt.value = data[i][4];
+      opt.innerHTML = data[i][4];
+      document.getElementById('drop-crops').appendChild(opt);
+    }}
 
-         chart.update()
+
          Year=$('#drop-year').val()
          Crop=$('#drop-crops').val()
          Season=$('#drop-season').val()
@@ -120,7 +146,7 @@ chart.data.labels.pop();
 
         });
         $('#drop-crops').change(function() {
- chart.data.labels.pop();
+  chart.data.labels=[]
           chart.data.datasets.forEach((dataset) => {
          dataset.data.pop();
      });
@@ -136,8 +162,18 @@ chart.data.labels.pop();
 
          });
       $('#drop-season').change(function()  {
-        $('#drop-crops').find('option').remove()
-        if($('#drop-season').val()=="Kharif"){
+        Year=$('#drop-year').val()
+        Season=$('#drop-season').val()
+        $('#drop-crops').find('option').remove();
+        for(i=0;i<data.length;i++)
+        {
+          if(data[i][2]==Year && data[i][3]==Season){
+         opt = document.createElement('option');
+          opt.value = data[i][4];
+          opt.innerHTML = data[i][4];
+          document.getElementById('drop-crops').appendChild(opt);
+        }}
+      /*  if($('#drop-season').val()=="Kharif"){
           console.log("1");
         for(i=0;i<k_crops.length;i++){
           var opt = document.createElement('option');
@@ -162,8 +198,8 @@ chart.data.labels.pop();
             opt.innerHTML = a_crops[i];
             document.getElementById('drop-crops').appendChild(opt);
           }
-        }
-        chart.data.labels.pop();
+        }*/
+        chart.data.labels=[]
                  chart.data.datasets.forEach((dataset) => {
                 dataset.data.pop();
             });
@@ -195,7 +231,7 @@ chart.data.labels.pop();
        var dictionary = {};
        dictionary.label=data[i][1]
        label.push(data[i][1])
-       dictionary.data=data[i][5];
+       dictionary.data=data[i][6];
        dictionary.backgroundColor=getRandomColor();
        dataArray.push(dictionary);
      }

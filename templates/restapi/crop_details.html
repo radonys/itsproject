@@ -22,15 +22,16 @@
       top: 0px !important;
       }
             div.gallery {
-                margin: 5px;
+                margin: 10px;
                 border: 1px solid #ccc;
                 width: 200px;
                 height: 200px;
                 float:left;
+                align-content: center;
             }
 
             div.gallery:hover {
-                border: 1px solid #777;
+                border: 1px solid rgb(51, 255, 0);
             }
 
             div.gallery img {
@@ -97,15 +98,14 @@
       <div class="row">
         <center>
       {%for i in data%}
-
       <div class="gallery">
         <a href="{% static 'farmereverywhere/crops/'%}{{i.1}}">
-          <img src="{% static 'farmereverywhere/CropImages/'%}{{i.2}}" alt="{{i.0}}" width="150px" height="150px">
+          <img style="align-content:center;" src="{% static 'farmereverywhere/CropImages/'%}{{i.2}}" alt="{{i.0}}" width="150px" height="150px">
         </a>
         <div class="desc">{{i.0}}</div>
       </div>
     {%endfor%}
-  </center>
+</center>
   </div>
     <footer>
             <div class="footer">

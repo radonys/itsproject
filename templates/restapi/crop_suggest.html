@@ -19,6 +19,10 @@
 body {
     top: 0px !important;
     }
+    #id3{
+			height: 440px;
+			width: 600px;
+		}
   </style>
   </head>
   <body>
@@ -84,26 +88,6 @@ body {
 						<div class="col-md-6 wow fadeInDown">
 							<div class="table-responsive">
 								<table class="table" id="table1">
-									<thead><tr>
-										<th>Crop</th>
-										<th>Price</th>
-									</tr></thead>
-									<tbody><tr>
-										<td>Bajra</td>
-										<td>100</td>
-									</tr>
-									<tr>
-										<td>Bajra</td>
-										<td>100</td>
-									</tr>
-									<tr>
-										<td>Bajra</td>
-										<td>100</td>
-									</tr>
-									<tr>
-										<td>Bajra</td>
-										<td>100</td>
-									</tr></tbody>
 								</table>
 							</div>
 						</div>
@@ -111,38 +95,23 @@ body {
 						<div class="col-md-6 wow fadeInDown">
 							<div class="table-responsive">
 								<table class="table" id="table2">
-									<thead><tr>
-										<th>Crop</th>
-										<th>Price</th>
-									</tr></thead>
-									<tr>
-										<td>Bajra</td>
-										<td>100</td>
-									</tr>
-									<tr>
-										<td>Bajra</td>
-										<td>100</td>
-									</tr>
-									<tr>
-										<td>Bajra</td>
-										<td>100</td>
-									</tr>
-									<tr>
-										<td>Bajra</td>
-										<td>100</td>
-									</tr>
 								</table>
 							</div>
 						</div>
 					</div>
 						<div class="col-md-6 wow fadeInDown">
-
+              <div class="col-md-12">
+                <h3>Timeline</h3>
+                <iframe src="{% url 'cropgraph'%}" id="id3">
+                  <p>Your browser does not support iframes.</p>
+                  </iframe>
+              </div>
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
-	</div>
 
 	<footer>
 		<div class="footer">

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 import requests
 import json
 from xml.etree import ElementTree as et
@@ -128,6 +128,7 @@ def crop_details(request):
 	return render(request,'restapi/crop_details.html',{"data":data})
 def news(request):
 	xmldata = requests.get("https://economictimes.indiatimes.com/news/economy/agriculture/rssfeeds/1202099874.cms").text
+	print(xmldata)
 	tree = et.fromstring(xmldata).find("channel").findall("item")
 	newsarts = []
 	for i in tree:
@@ -163,3 +164,65 @@ def crop_graphs(request):
 	print(a_crops)
 	print(set(b_crops)-set(k_crops))
 	return render(request,'restapi/crop_graph.html',{"data":data,"a_crops":a_crops,"b_crops":b_crops,"k_crops":k_crops})
+def searchnews(request):
+	if request.method=="POST":
+		query = request.POST.get('query')
+		xmldata = requests.get("https://news.google.com/rss/search/section/q/"+query+"/"+query+"?hl=en-IN&gl=IN&ned=in")
+		newsarts = []
+		for i in tree:
+			temp_data = {}
+			if len(i.find("title"))>1:
+				temp_data["title"] = i.find("title")[0].text
+			else:
+				temp_data["title"] = i.find("title").text
+			if len(i.find("link"))>1:
+				temp_data["link"] = i.find("link")[0].text
+			else:
+				temp_data["link"] = i.find("link").text
+			if len(i.find("description"))>1:
+				temp_data["description"] = i.find("description")[0].text
+			else:
+				temp_data["description"] = i.find("description").text
+			if len(i.find("pubDate"))>1:
+				temp_data["date"] = i.find("pubDate")[0].text
+			else:
+				temp_data["date"] = i.find("pubDate").text
+			if i.find("image"):
+				if len(i.find("image"))>1:
+					temp_data["img"] = i.find("image")[0].text
+				else:
+					temp_data["img"] = i.find("image").text
+			newsarts.append(temp_data)
+		return JsonResponse(newsarts,status=200,safe=False)
+	else:
+		HttpResponse("Not Allowed",400)
+def poultry_news(request):
+	xmldata = requests.get("https://news.google.com/news/rss/search/section/q/Poultry%20India/Poultry%20India?hl=en-IN&gl=IN&ned=in").text#"https://economictimes.indiatimes.com/news/economy/agriculture/rssfeeds/1202099874.cms").text
+	#print(xmldata)
+	tree = et.fromstring(xmldata).find("channel").findall("item")
+	newsarts = []
+	for i in tree:
+		temp_data = {}
+		if len(i.find("title"))>1:
+			temp_data["title"] = i.find("title")[0].text
+		else:
+			temp_data["title"] = i.find("title").text
+		if len(i.find("link"))>1:
+			temp_data["link"] = i.find("link")[0].text
+		else:
+			temp_data["link"] = i.find("link").text
+		if len(i.find("description"))>1:
+			temp_data["description"] = i.find("description")[0].text
+		else:
+			temp_data["description"] = i.find("description").text
+		if len(i.find("pubDate"))>1:
+			temp_data["date"] = i.find("pubDate")[0].text
+		else:
+			temp_data["date"] = i.find("pubDate").text
+		if i.find("image"):
+			if len(i.find("image"))>1:
+				temp_data["img"] = i.find("image")[0].text
+			else:
+				temp_data["img"] = i.find("image").text
+		newsarts.append(temp_data)
+	return JsonResponse(newsarts,status=200,safe=False)

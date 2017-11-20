@@ -86,9 +86,26 @@
 			</div>
 		</div>
 	</div></div>
-	<div class="row">
-	<div class="services">
-		<div class="col-md-12">
+
+  <section id="portfolio">
+        <div class="container">
+            <div class="center">
+               <p></p>
+            </div>
+
+            <ul class="portfolio-filter text-center">
+                <li><a class="btn btn-default active" href="#" data-filter=".3d"> 3D Maps</a></li>
+                <li><a class="btn btn-default" href="#" data-filter=".2d">2D Maps</a></li>
+            </ul><!--/#portfolio-filter-->
+        </div>
+
+	<!--<div class="row">
+	<div class="services">-->
+  <div class="container">
+    <div class="">
+        <div class="portfolio-items">
+            <div class="portfolio-item 3d col-md-12">
+              <div class="col-md-12">
 			<h3>3D Map</h3>
 			<iframe src="{% url '3d'%}" id="id1">
 				<p>Your browser does not support iframes.</p>
@@ -96,18 +113,20 @@
 		</div>
 	</div>
 </div>
-<div class="row">
-<div class="services">
+</div>
+<!--<div class="row">
+<div class="services">-->
+<div class="">
+    <div class="portfolio-items"  id="hide">
+        <div class="portfolio-item 2d col-md-12">
   <div class="col-md-12">
     <h3>2D Map 1</h3>
     <iframe src="{% url 'mapsall'%}" id="id2">
       <p>Your browser does not support iframes.</p>
       </iframe>
   </div>
-</div>
-</div>
-<div class="row">
-<div class="services">
+<!--<div class="row">
+<div class="services">-->
   <div class="col-md-12">
     <h3>2D Map 2</h3>
     <iframe src="{% url 'circles'%}" id="id3">
@@ -116,6 +135,9 @@
   </div>
 </div>
 </div>
+</div>
+</div>
+</section>
 
 
 	<footer>

@@ -17,8 +17,7 @@
     <script src={% static "Chart.js" %}></script>
     <script src={% static "Chart.PieceLabel.min.js" %}></script>
     <style>
-            #e2{position:absolute;right:120;}
-            #e1{position:absolute;left:120;}
+
             .goog-te-banner-frame.skiptranslate {
               display: none !important;
               }
@@ -131,12 +130,14 @@
             <div class="">
                 <div class="portfolio-items"  id="hide">
                     <div class="portfolio-item poultry col-md-12">
-                        <center><h3>GRAPHS</h3></center>
-                                <div class="col-md-6">
-                                <canvas id="radar-chart"></canvas></div>
-                                <div class="col-md-6">
-                                <canvas id="chart2"></canvas></div>
-                    </div><!--/.portfolio-item-->
+                      <center>
+                        <select id="drop-state">
+                        </select>
+
+
+                                <canvas style="align:center" id="radar-chart"></canvas></div>
+                                </center>
+                  <!--/.portfolio-item-->
                 </div>
             </div>
 
@@ -184,6 +185,31 @@
     <script src="{% static 'farmereverywhere/js/wow.min.js' %}"></script>
     <script src="{% static 'farmereverywhere/js/functions.js' %}"></script>
     <script>
+    $('#drop-state').change(function()  {
+      St=$('#drop-state').val();
+      console.log(St);
+      makechart(St);
+
+    });
+    data={{data|safe}}
+    labels={{labels|safe}}
+    states={{states|safe}}
+    for (var i = 0; i<states.length; i++){
+        var opt = document.createElement('option');
+        opt.value = states[i];
+        opt.innerHTML = states[i];
+        document.getElementById('drop-state').appendChild(opt);
+    }
+    var dataArr=[];
+    var x=null;
+    St=$('#drop-state').val();
+    console.log(St);
+    var bgcolor=[]
+    for(i=0;i<labels.length;i++)
+    {
+      bgcolor.push(getRandomColor());
+    }
+    makechart(St);
             function getRandomColor() {
             var letters = '0123456789ABCDEF'.split('');
             var color = '#';
@@ -192,36 +218,41 @@
             }
             return color;
         }
-          var x=new Chart(document.getElementById("radar-chart"), {
+
+
+        function makechart(State){
+          console.log(data);
+            dataArr=[];
+          for(i=0;i<data.length;i++)
+          {
+
+
+            if(data[i][0]==State)
+            {
+              for(j=2;j<data[i].length;j++)
+              {
+                console.log(data[i][j]);
+                dataArr.push(parseInt(data[i][j]))
+              }
+            }
+          }
+          console.log(dataArr);
+          if(x)
+            x.clear()
+          x=new Chart(document.getElementById("radar-chart"), {
           type: 'doughnut',
           data: {
             datasets: [{
-              data: [
-                4860,
-                2000,
-                130,
-                552,
-              ],
-              backgroundColor: [
-                "#F7464A",
-                "#46BFBD",
-                "#FDB45C",
-                "#949FB1",
-              ],
+              data: dataArr,
+              backgroundColor: bgcolor,
               label: 'Poultry Count(x100)'
             }],
-            labels: [
-                    "Layer-Poultry",
-                    "Broiler",
-                    "Duck",
-                    "Others"
-
-            ]
+            labels: labels
           },
           options:{
             title: {
               display: true,
-              text: 'Vellore(Urban)'
+              text: State
             },
           pieceLabel: {
             render: 'percentage',
@@ -231,47 +262,7 @@
           }
         }
 
-        });
-        var x=new Chart(document.getElementById("chart2"), {
-        type: 'doughnut',
-        data: {
-          datasets: [{
-            data: [
-              860,
-              1000,
-              330,
-              52,
-            ],
-            backgroundColor: [
-              "#F7464A",
-              "#46BFBD",
-              "#FDB45C",
-              "#949FB1",
-            ],
-            label: 'Poultry Count(x100)'
-          }],
-          labels: [
-                  "Layer-Poultry",
-                  "Broiler",
-                  "Duck",
-                  "Others"
-
-          ]
-        },
-        options:{
-          title: {
-            display: true,
-            text: 'Vellore(Rural)'
-          },
-        pieceLabel: {
-          render: 'percentage',
-          fontColor: '#000',
-          position: 'outside',
-          precision: 2
-        }
-        }
-
-        });
+      });}
 
             </script>
 

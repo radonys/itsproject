@@ -116,7 +116,23 @@ def cropsug(request):
 			ref_data[i["district"]][i["commodity"]]={"max_price":i["max_price"],"min_price":i["min_price"],"modal_price":i["modal_price"]}
 	return render(request,'restapi/crop_suggest.html',{"data":json.dumps(ref_data)})
 def polman(request):
-	return render(request,'restapi/poultry_manage.html',{})
+	reader = csv.reader(open('poultry.csv'))
+	data=[]
+	labels=[]
+	states=[]
+	i=0
+	for line in reader:
+		if(i==0):
+			labels.extend([x.strip()  for x in line[3:]])
+		i+=1
+		if(i<4):
+			continue
+		states.append(line[1].strip())
+		data.append([x.strip() for x in line[1:]])
+
+	print(labels)
+	print(data)
+	return render(request,'restapi/poultry_manage.html',{"data":data,"labels":labels,"states":states})
 def properties_m(request):
 	r = True
 	data1 = requests.post(SERVER_URL+'/houseall/')

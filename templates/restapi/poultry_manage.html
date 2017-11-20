@@ -98,7 +98,7 @@
                         <div class="input-group add-on">
                             <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
                             <div class="input-group-btn">
-                                <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i> Search</button>
+                                <button class="btn btn-info" onclick="searchnews();"><i class="glyphicon glyphicon-search"></i> Search</button>
                             </div>
                         </div>
 
@@ -107,10 +107,8 @@
                                 <div class="recent-work-inner">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <table class="table table-bordered">
-                                                    <tr>
-                                                        <th><center>Poultry Search Results</center></th>
-                                                    </tr>
+                                            <center><h3>Poultry Search Results</h3></center>
+                                                <table class="table table-bordered" id="news" onload="console.log('fuck')">
                                                     <tr>
                                                         <td rowspan="8">Nam tempor velit sed turpis imperdiet vestibulum. In mattis leo ut sapien euismod id feugiat mauris euismod. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus id nulla risus, vel tincidunt turpis. Aliquam a nulla mi, placerat blandit eros. In neque lectus, lobortis a varius a, hendrerit eget dolor. Fusce scelerisque, sem ut viverra sollicitudin, est turpis blandit lacus, in pretium lectus sapien at est. Integer pretium ipsum sit amet dui feugiat vitae dapibus odio eleifend. As a describer of life and manners, he must be allowed to stand perhaps the first of the first rank. His humour, which, as Steele observes, is peculiar to himself, is so happily diffused as to give the grace of novelty to domestic scenes and daily occurrences. He never "o'ersteps the modesty of nature," nor raises merriment or wonder by the violation of truth. His figures neither divert by distortion nor amaze by aggravation. He copies life with so much fidelity that he can be hardly said to invent; yet his exhibitions have an air so much original, that it is difficult to suppose them not merely the product of imagination.</td>
                                                     </tr>
@@ -134,10 +132,8 @@
                         <select id="drop-state">
                         </select>
 
-                               <div id="graph-container">
-                                <canvas style="align:center" id="radar-chart"></canvas>
-                              </div>
-                            </div>
+
+                                <canvas style="align:center" id="radar-chart"></canvas></div>
                                 </center>
                   <!--/.portfolio-item-->
                 </div>
@@ -186,6 +182,41 @@
     <script src="{% static 'farmereverywhere/js/jquery.isotope.min.js' %}"></script>
     <script src="{% static 'farmereverywhere/js/wow.min.js' %}"></script>
     <script src="{% static 'farmereverywhere/js/functions.js' %}"></script>
+    <script>
+    $(document).ready(
+    function (){
+      console.log("called!")
+      fetch("{% url 'poultry_news' %}")
+      .then(function(response){return response.json()})
+      .then(function(data){
+          console.log("the data is :",data)
+          var str = "";
+          var dat = data;
+          for(var i =0;i<dat.length;i++)
+          {
+            str+="<tr><th><div class='row'><div class='col-md-8'><a href='"+dat[i].link+"' target='_blank' style='text-align:right;'>"+dat[i].title+"</a></div></div><div class='row'><div class='col-md-12' style='text-align:right;'>"+dat[i].description+"</div></div></th></tr>";
+          }
+          document.getElementById("news").innerHTML = str;
+      });
+    });
+    function searchnews(){
+      fetch("{% url 'searchnews' %}",{
+        method:'post',
+        body:JSON.stringify({query:document.getElementById("srch-term").value})}
+      )
+      .then(function(response){return response.json()})
+      .then(function(data){
+          console.log("the searchnews data is :",data)
+          var str = "";
+          var dat = data;
+          for(var i =0;i<dat.length;i++)
+          {
+            str+="<tr><th><div class='row'><div class='col-md-8'><a href='"+dat[i].link+"' target='_blank' style='text-align:right;'>"+dat[i].title+"</a></div></div><div class='row'><div class='col-md-12' style='text-align:right;'>"+dat[i].description+"</div></div></th></tr>";
+          }
+          document.getElementById("news").innerHTML = str;
+      });
+    }
+    </script>
     <script>
     $('#drop-state').change(function()  {
       St=$('#drop-state').val();
@@ -239,8 +270,8 @@
             }
           }
           console.log(dataArr);
-          $('#radar-chart').remove(); // this is my <canvas> element
-  $('#graph-container').append('<canvas style="align:center" id="radar-chart"><canvas>');
+          if(x)
+            x.clear()
           x=new Chart(document.getElementById("radar-chart"), {
           type: 'doughnut',
           data: {

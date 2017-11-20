@@ -134,8 +134,10 @@
                         <select id="drop-state">
                         </select>
 
-
-                                <canvas style="align:center" id="radar-chart"></canvas></div>
+                               <div id="graph-container">
+                                <canvas style="align:center" id="radar-chart"></canvas>
+                              </div>
+                            </div>
                                 </center>
                   <!--/.portfolio-item-->
                 </div>
@@ -237,8 +239,8 @@
             }
           }
           console.log(dataArr);
-          if(x)
-            x.clear()
+          $('#radar-chart').remove(); // this is my <canvas> element
+  $('#graph-container').append('<canvas style="align:center" id="radar-chart"><canvas>');
           x=new Chart(document.getElementById("radar-chart"), {
           type: 'doughnut',
           data: {

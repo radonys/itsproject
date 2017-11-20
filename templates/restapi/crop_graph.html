@@ -6,7 +6,9 @@
     <script src={% static "Chart.js" %}></script>
   </head>
   <body>
+    <div id="graph-container">
     <canvas id="chart" width="800" height="450"></canvas>
+  </div>
     <select id="drop-season" required>
   <option value="Kharif">Kharif</option>
   <option value="Rabi">Rabi</option>
@@ -103,12 +105,19 @@
 
         }],
         xAxes: [{
-          categorySpacing: 0,
-          scaleLabel: {
-            display: true,
-            labelString: "Districts"
-          }
-        }]
+        stacked: false,
+        beginAtZero: true,
+        scaleLabel: {
+          display: true,
+          labelString: "Districts"
+        },
+        ticks: {
+            stepSize: 1,
+            min: 0,
+            autoSkip: false
+        }
+    }]
+
       }
     }
 });
@@ -117,11 +126,12 @@
 
     $(document).ready(function() {
        $('#drop-year').change(function() {
-  chart.data.labels=[]
+  /*chart.data.labels=[]
          chart.data.datasets.forEach((dataset) => {
         dataset.data.pop();
-    });
-    chart.update()
+        chart.update()
+    });*/
+
     Year=$('#drop-year').val()
     Season=$('#drop-season').val()
     $('#drop-crops').find('option').remove();
@@ -146,11 +156,11 @@
 
         });
         $('#drop-crops').change(function() {
-  chart.data.labels=[]
+/*  chart.data.labels=[]
           chart.data.datasets.forEach((dataset) => {
          dataset.data.pop();
      });
-          chart.update()
+          chart.update()*/
           Year=$('#drop-year').val()
           Crop=$('#drop-crops').val()
           Season=$('#drop-season').val()
@@ -199,11 +209,11 @@
             document.getElementById('drop-crops').appendChild(opt);
           }
         }*/
-        chart.data.labels=[]
+      /*  chart.data.labels=[]
                  chart.data.datasets.forEach((dataset) => {
                 dataset.data.pop();
             });
-                 chart.update()
+                 chart.update()*/
                  Year=$('#drop-year').val()
                  Crop=$('#drop-crops').val()
                  Season=$('#drop-season').val()
@@ -224,34 +234,72 @@
  function populatedata(Year,Crop,Season){
    dataArray=[]
    label=[]
+   datapoints=[]
+   backgroundColor=[]
    console.log(Year);console.log(Crop);console.log(Season);
    for(i=0;i<data.length;i++){
      if(data[i][2]==Year && data[i][4]==Crop && data[i][3]==Season)
      {
-       var dictionary = {};
-       dictionary.label=data[i][1]
        label.push(data[i][1])
-       dictionary.data=data[i][6];
-       dictionary.backgroundColor=getRandomColor();
-       dataArray.push(dictionary);
+       datapoints.push(data[i][6]);
+       backgroundColor.push(getRandomColor());
+
      }
 
    }
-   j=0;
-   for (var x in dataArray) {
-            console.log(parseInt(dataArray[x]["data"]));
-            chart.data.datasets[0].data.push(parseInt(dataArray[x]["data"]));
-            chart.data.datasets[0].backgroundColor.push(dataArray[x]["backgroundColor"]);
-                        /*chart.data.datasets.push({
-  label: dataArray[x]["label"],
-  backgroundColor: dataArray[x]["backgroundColor"],
-  data: [parseInt(dataArray[x]["data"])],
-})*/
-j=j+1;
+   deletechart();
+   var chart=new Chart(document.getElementById("chart"), {
+   type: 'bar',
+   label:["E"],
+       data: {
+         labels: label,
+   datasets:  [{data:datapoints,backgroundColor:backgroundColor}
+
+   ]
+   },
+   options: {
+     legend: {
+   display: false,
+},
+     title: {
+       display: true,
+       text: 'Production of crops based on Season and Year'
+     },
+     scales: {
+       yAxes: [{
+
+         scaleLabel: {
+           display: true,
+           labelString: "Yield( Ton)"
+         },
+         ticks: {
+                   beginAtZero: true,
+                   min: 0,
+               },
+
+       }],
+       xAxes: [{
+       stacked: false,
+       beginAtZero: true,
+       scaleLabel: {
+         display: true,
+         labelString: "Districts"
+       },
+       ticks: {
+           stepSize: 1,
+           min: 0,
+           autoSkip: false
+       }
+   }]
+     }
+   }
+});
+
         }
-   chart.data.labels=label;
-   chart.update();
-  console.log(dataArray);
+
+ function deletechart(){
+   $('#chart').remove(); // this is my <canvas> element
+$('#graph-container').append('<canvas style="align:center" width="800" height="450" id="chart"><canvas>');
  }
 
 

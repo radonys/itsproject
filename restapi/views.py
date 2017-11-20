@@ -1,9 +1,12 @@
 from django.shortcuts import render,HttpResponse
 import requests
+import html
 import json
 from xml.etree import ElementTree as et
 from django.http import JsonResponse
 import csv
+from django.views.decorators.csrf import csrf_exempt
+import urllib.parse
 '''
 		Final views shown on website
 1.Index
@@ -113,23 +116,7 @@ def cropsug(request):
 			ref_data[i["district"]][i["commodity"]]={"max_price":i["max_price"],"min_price":i["min_price"],"modal_price":i["modal_price"]}
 	return render(request,'restapi/crop_suggest.html',{"data":json.dumps(ref_data)})
 def polman(request):
-	reader = csv.reader(open('poultry.csv'))
-	data=[]
-	labels=[]
-	states=[]
-	i=0
-	for line in reader:
-		if(i==0):
-			labels.extend([x.strip()  for x in line[3:]])
-		i+=1
-		if(i<4):
-			continue
-		states.append(line[1].strip())
-		data.append([x.strip() for x in line[1:]])
-
-	print(labels)
-	print(data)
-	return render(request,'restapi/poultry_manage.html',{"data":data,"labels":labels,"states":states})
+	return render(request,'restapi/poultry_manage.html',{})
 def properties_m(request):
 	r = True
 	data1 = requests.post(SERVER_URL+'/houseall/')
@@ -180,11 +167,14 @@ def crop_graphs(request):
 	print(a_crops)
 	print(set(b_crops)-set(k_crops))
 	return render(request,'restapi/crop_graph.html',{"data":data,"a_crops":a_crops,"b_crops":b_crops,"k_crops":k_crops})
+@csrf_exempt
 def searchnews(request):
 	if request.method=="POST":
-		query = request.POST.get('query')
-		xmldata = requests.get("https://news.google.com/rss/search/section/q/"+query+"/"+query+"?hl=en-IN&gl=IN&ned=in")
+		query = json.loads(request.body.decode('utf-8'))['query']
+		print(query)
+		xmldata = requests.get( "https://news.google.com/rss/search/section/q/"+query+"/"+query+"?hl=en-IN&gl=IN&ned=in").text
 		newsarts = []
+		tree = et.fromstring(xmldata).find("channel").findall("item")
 		for i in tree:
 			temp_data = {}
 			if len(i.find("title"))>1:
@@ -208,10 +198,11 @@ def searchnews(request):
 					temp_data["img"] = i.find("image")[0].text
 				else:
 					temp_data["img"] = i.find("image").text
-			newsarts.append(temp_data)
+			else:
+				temp_data["img"]=newsarts.append(temp_data)
 		return JsonResponse(newsarts,status=200,safe=False)
 	else:
-		HttpResponse("Not Allowed",400)
+		return HttpResponse("Not Allowed",status=400)
 def poultry_news(request):
 	xmldata = requests.get("https://news.google.com/news/rss/search/section/q/Poultry%20India/Poultry%20India?hl=en-IN&gl=IN&ned=in").text#"https://economictimes.indiatimes.com/news/economy/agriculture/rssfeeds/1202099874.cms").text
 	#print(xmldata)

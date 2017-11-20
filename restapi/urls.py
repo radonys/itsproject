@@ -28,4 +28,6 @@ urlpatterns = [
   url(r'^cropdet/', views.crop_details,name="cropdet"),
   url(r'^news/',views.news,name="news"),
   url(r'^cropgraph/', views.crop_graphs,name="cropgraph"),
+  url(r'^poultry_news/', views.poultry_news,name="poultry_news"),
+  url(r'^searchnews/',views.searchnews,name="searchnews")
 ]

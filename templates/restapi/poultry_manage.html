@@ -132,8 +132,10 @@
                         </select>
 
 
-                                <canvas style="align:center" id="radar-chart"></canvas></div>
-                                </center>
+                        <div id="graph-container">
+                        <canvas style="align:center" id="radar-chart"></canvas>
+                      </div>
+</div>
                   <!--/.portfolio-item-->
                 </div>
             </div>
@@ -218,83 +220,77 @@
     </script>
     <script>
     $('#drop-state').change(function()  {
-      St=$('#drop-state').val();
-      console.log(St);
-      makechart(St);
-
-    });
-    data={{data|safe}}
-    labels={{labels|safe}}
-    states={{states|safe}}
-    for (var i = 0; i<states.length; i++){
-        var opt = document.createElement('option');
-        opt.value = states[i];
-        opt.innerHTML = states[i];
-        document.getElementById('drop-state').appendChild(opt);
-    }
-    var dataArr=[];
-    var x=null;
-    St=$('#drop-state').val();
-    console.log(St);
-    var bgcolor=[]
-    for(i=0;i<labels.length;i++)
-    {
-      bgcolor.push(getRandomColor());
-    }
-    makechart(St);
-            function getRandomColor() {
-            var letters = '0123456789ABCDEF'.split('');
-            var color = '#';
-            for (var i = 0; i < 6; i++ ) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-
-        function makechart(State){
-          console.log(data);
-            dataArr=[];
-          for(i=0;i<data.length;i++)
-          {
-
-
-            if(data[i][0]==State)
-            {
-              for(j=2;j<data[i].length;j++)
-              {
-                console.log(data[i][j]);
-                dataArr.push(parseInt(data[i][j]))
-              }
-            }
-          }
-          console.log(dataArr);
-          if(x)
-            x.clear()
-          x=new Chart(document.getElementById("radar-chart"), {
-          type: 'doughnut',
-          data: {
-            datasets: [{
-              data: dataArr,
-              backgroundColor: bgcolor,
-              label: 'Poultry Count(x100)'
-            }],
-            labels: labels
-          },
-          options:{
-            title: {
-              display: true,
-              text: State
-            },
-          pieceLabel: {
-            render: 'percentage',
-            fontColor: '#000',
-            position: 'outside',
-            precision: 2
-          }
-        }
-
-      });}
+       St=$('#drop-state').val();
+       console.log(St);
+       makechart(St);
+     });
+     data={{data|safe}}
+     labels={{labels|safe}}
+     states={{states|safe}}
+     for (var i = 0; i<states.length; i++){
+         var opt = document.createElement('option');
+         opt.value = states[i];
+         opt.innerHTML = states[i];
+         document.getElementById('drop-state').appendChild(opt);
+     }
+     var dataArr=[];
+     var x=null;
+     St=$('#drop-state').val();
+     console.log(St);
+     var bgcolor=[]
+     for(i=0;i<labels.length;i++)
+     {
+       bgcolor.push(getRandomColor());
+     }
+     makechart(St);
+             function getRandomColor() {
+             var letters = '0123456789ABCDEF'.split('');
+             var color = '#';
+             for (var i = 0; i < 6; i++ ) {
+                 color += letters[Math.floor(Math.random() * 16)];
+             }
+             return color;
+         }
+         function makechart(State){
+           console.log(data);
+             dataArr=[];
+           for(i=0;i<data.length;i++)
+           {
+             if(data[i][0]==State)
+             {
+               for(j=2;j<data[i].length;j++)
+               {
+                 console.log(data[i][j]);
+                 dataArr.push(parseInt(data[i][j]))
+               }
+             }
+           }
+           console.log(dataArr);
+           $('#radar-chart').remove(); // this is my <canvas> element
+   $('#graph-container').append('<canvas style="align:center" id="radar-chart"><canvas>');
+           x=new Chart(document.getElementById("radar-chart"), {
+           type: 'doughnut',
+           data: {
+             datasets: [{
+               data: dataArr,
+               backgroundColor: bgcolor,
+               label: 'Poultry Count(x100)'
+             }],
+             labels: labels
+           },
+           options:{
+             title: {
+               display: true,
+               text: State
+             },
+           pieceLabel: {
+             render: 'percentage',
+             fontColor: '#000',
+             position: 'outside',
+             precision: 2
+           }
+         }
+       });}
 
             </script>
 
